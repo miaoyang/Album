@@ -32,7 +32,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         private const val CODE_CAMERA_REQUEST = 0xa1
         private const val CODE_RESULT_REQUEST = 0xa2
 
-        private const val FILE_PROVIDER = "com.ym.album.file_provider"
+        private const val FILE_PROVIDER = "com.ym.album.fileprovider"
     }
 
 
@@ -66,7 +66,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE),
                     object :RequestPermissionCallBack{
                         override fun granted() {
-                            if (CommonUtil.hasSdcard()){
+                            if (hasSdcard()){
                                 imageUri = Uri.fromFile(fileUri)
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                                     imageUri = FileProvider.getUriForFile(this@MainActivity,FILE_PROVIDER,fileUri)
