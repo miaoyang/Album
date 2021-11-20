@@ -28,8 +28,8 @@
         </activity>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.donkor.demo.takephoto.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ym.album.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

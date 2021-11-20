@@ -13,17 +13,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import com.ym.album.utils.CommonUtil
 import com.ym.album.utils.PhotoUtils
 import java.io.File
-import android.R.attr.data
-import android.graphics.Bitmap
 
 import com.ym.album.utils.CommonUtil.hasSdcard
-
-
-
-
+import java.lang.Exception
 
 class MainActivity : BaseActivity(), View.OnClickListener {
     companion object{
@@ -67,9 +61,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     object :RequestPermissionCallBack{
                         override fun granted() {
                             if (hasSdcard()){
+                                Log.d(TAG,"fileUri $fileUri")
                                 imageUri = Uri.fromFile(fileUri)
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                                    imageUri = FileProvider.getUriForFile(this@MainActivity,FILE_PROVIDER,fileUri)
+                                    try {
+                                        imageUri = FileProvider.getUriForFile(this@MainActivity,FILE_PROVIDER,fileUri)
+                                    }catch (e:Exception){
+                                        Log.e(TAG,"FileProvider error ",e)
+                                    }
                                     PhotoUtils.takePicture(this@MainActivity,imageUri,
                                         CODE_CAMERA_REQUEST)
                                 }else{
