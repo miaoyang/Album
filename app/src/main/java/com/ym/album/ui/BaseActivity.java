@@ -1,4 +1,4 @@
-package com.ym.album;
+package com.ym.album.ui;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.HomeActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragment_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabs_rg"/>
+
+    <RadioGroup
+        android:id="@+id/tabs_rg"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="#dcdcdc"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/today_tab"
+            android:checked="true"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:text="图库"
+            android:layout_height=""/>
+
+        <RadioButton
+            android:id="@+id/record_tab"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:text="为您推荐" />
+
+        <RadioButton
+            android:id="@+id/contact_tab"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:text="相薄" />
+
+        <RadioButton
+            android:id="@+id/settings_tab"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:text="搜索" />
+    </RadioGroup>
+
+</RelativeLayout>
