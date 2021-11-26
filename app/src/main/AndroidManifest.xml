@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album">
         <activity
+            android:name=".ui.activity.ImageSelectActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.ImagePreviewActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.HomeActivity"
             android:exported="true" />
         <activity

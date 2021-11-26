@@ -6,4 +6,22 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
+    <!--底部buttom-->
+    <declare-styleable name="DecRadioButton">
+        <attr name="rb_width" format="dimension"/>
+        <attr name="rb_height" format="dimension"/>
+    </declare-styleable>
+
+    <!-- 缩放的 ImageView -->
+    <declare-styleable name="ScaleImageView">
+        <!-- 缩放比例 -->
+        <attr name="scaleRatio" format="float" />
+    </declare-styleable>
+
+    <!-- 按照比例显示的 FrameLayout -->
+    <declare-styleable name="RatioFrameLayout">
+        <!-- 宽高比例 -->
+        <attr name="sizeRatio" format="string" />
+    </declare-styleable>
+
 </resources>
