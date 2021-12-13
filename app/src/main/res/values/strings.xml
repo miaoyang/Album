@@ -13,6 +13,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
     <string name="title_activity_main">MainActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -21,4 +22,10 @@
     <string name="home_recommend">为您推荐</string>
     <string name="home_relatives">相薄</string>
     <string name="home_search">搜索</string>
+
+    <string name="logo_name">Album</string>
+
+    <!--fragment attr-->
+    <string name="tv_album_name">相册名</string>
+    <string name="tv_album_image_num">0</string>
 </resources>

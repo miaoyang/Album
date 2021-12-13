@@ -4,8 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.ym.album.R;
-import com.ym.album.databinding.ActivityMainBinding;
-import com.ym.album.ui.ui.adapter.HomeAdapter;
+import com.ym.album.ui.adapter.HomeAdapter;
+import com.ym.album.ui.fragment.AlbumFragment;
+import com.ym.album.ui.fragment.SelectImageFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ActivityMainBinding binding;
 
     private ViewPager2 mViewPager;
     private RadioGroup mRadioGroup;
@@ -44,9 +44,9 @@ public class MainActivity extends BaseActivity {
         mRadioGroup = findViewById(R.id.tabs_rg);
 
         mFragmentsList = new ArrayList<>(4);
-        mFragmentsList.add(BlankFragment.newInstance("图库"));
+        mFragmentsList.add(SelectImageFragment.newInstance());
         mFragmentsList.add(BlankFragment.newInstance("为您推荐"));
-        mFragmentsList.add(BlankFragment.newInstance("相薄"));
+        mFragmentsList.add(AlbumFragment.newInstance());
         mFragmentsList.add(BlankFragment.newInstance("搜索"));
         Log.d(TAG," list "+mFragmentsList);
 

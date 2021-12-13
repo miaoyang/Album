@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/checkbox_checked_ic.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/checkbox_disable_ic.xml" value="0.34814814814814815" />
         <entry key="app/src/main/res/drawable/checkbox_selector.xml" value="0.34814814814814815" />
         <entry key="app/src/main/res/drawable/compound_normal_ic.xml" value="0.34814814814814815" />
@@ -17,11 +18,16 @@
         <entry key="app/src/main/res/layout/activity_image_preview.xml" value="0.10740740740740741" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1398148148148148" />
+        <entry key="app/src/main/res/layout/fragment_album.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.20491388044579534" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/image_select_item.xml" value="0.12777777777777777" />
+        <entry key="app/src/main/res/layout/fragment_select_image.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/image_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/image_select_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_album_layout.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_image_layout.xml" value="0.33" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>

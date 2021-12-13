@@ -20,6 +20,9 @@
     <style name="Theme.Album.NoActionBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
     </style>
     <style name="Theme.Album.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.Album.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

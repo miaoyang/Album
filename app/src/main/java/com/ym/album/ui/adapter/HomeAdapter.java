@@ -1,4 +1,4 @@
-package com.ym.album.ui.ui.adapter;
+package com.ym.album.ui.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
