@@ -15,14 +15,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.ym.album.app.config.ARouterConfig;
+import com.ym.common.config.DebugConfig;
+import com.ym.common.utils.CrashHandlerUtil;
+
 public class BaseActivity extends AppCompatActivity {
     private final int mRequestCode = 1024;
     private RequestPermissionCallBack mRequestPermissionCallBack;
 
+    private void initConfig(){
+        DebugConfig.setDebug(true);
+        DebugConfig.setAppTag("Album");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        CrashHandlerUtil.getInstance().init(this);
+        initConfig();
+        ARouter.getInstance().inject(this);
     }
 
     @Override

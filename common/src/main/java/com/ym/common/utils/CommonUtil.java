@@ -1,4 +1,4 @@
-package com.ym.album.utils;
+package com.ym.common.utils;
 
 import android.content.Context;
 import android.os.Environment;

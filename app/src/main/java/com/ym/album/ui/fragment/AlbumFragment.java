@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 
 import com.ym.album.R;
 import com.ym.album.ui.adapter.AlbumRecyclerAdapter;
+import com.ym.common.utils.LogUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -130,7 +131,7 @@ public class AlbumFragment extends Fragment {
 
             cursor.close();
         }
-        Log.d(TAG,"AllAlbum path "+mAllAlbum);
+        LogUtil.d(TAG,"AllAlbum path "+mAllAlbum);
         return mAllAlbum;
     }
 }

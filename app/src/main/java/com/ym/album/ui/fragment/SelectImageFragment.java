@@ -30,6 +30,7 @@ import android.view.animation.AnimationUtils;
 import com.ym.album.R;
 import com.ym.album.base.BaseFragment;
 import com.ym.album.ui.adapter.ImageRecyclerAdapter;
+import com.ym.common.utils.LogUtil;
 
 import java.io.File;
 import java.time.temporal.TemporalAccessor;
@@ -137,7 +138,7 @@ public class SelectImageFragment extends Fragment {
 
             cursor.close();
         }
-        Log.d(TAG,"Image path "+imagePathList);
+        LogUtil.d(TAG,"Image path "+imagePathList);
         return imagePathList;
     }
 

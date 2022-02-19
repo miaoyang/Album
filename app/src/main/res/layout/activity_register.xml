@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.activity.account.RegisterActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:id="@+id/tv_register_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_register"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_30" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:hint="@string/tv_doc"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tv_input_iphone_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_below="@id/tv_register_layout">
+        <EditText
+            android:id="@+id/et_input_iphone_number"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="wrap_content"
+            android:hint="@string/tv_input_iphone_number"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/black"
+            android:selectAllOnFocus="true"/>
+
+        <Button
+            android:id="@+id/bt_send_code"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_input_code"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_selected"
+            android:layout_marginStart="@dimen/dp_30"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_270"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_input_iphone_layout"
+        android:layout_marginTop="@dimen/dp_30"
+
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_input_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tv_input_code"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18"
+            android:selectAllOnFocus="true"/>
+
+        <EditText
+            android:id="@+id/et_input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:hint="@string/tv_input_password"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18"
+            android:selectAllOnFocus="true"/>
+
+        <EditText
+            android:id="@+id/et_input_password_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:hint="@string/tv_input_password_again"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18"
+            android:selectAllOnFocus="true"/>
+
+        <Button
+            android:id="@+id/bt_register_account"
+            android:layout_width="@dimen/dp_270"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_30"
+            android:background="@drawable/btn_selected"
+            android:text="@string/bt_register"
+            android:textSize="@dimen/sp_20"
+            android:textColor="@color/black"
+            android:shadowColor="#FF7F00"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

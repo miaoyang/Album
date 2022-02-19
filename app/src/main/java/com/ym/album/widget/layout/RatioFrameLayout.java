@@ -2,7 +2,6 @@ package com.ym.album.widget.layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -11,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ym.album.R;
-import com.ym.album.utils.EmptyUtil;
+import com.ym.common.utils.EmptyUtil;
 
 public class RatioFrameLayout extends FrameLayout {
     private float mWidthRatio;

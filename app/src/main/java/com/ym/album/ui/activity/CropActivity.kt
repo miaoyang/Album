@@ -1,4 +1,4 @@
-package com.ym.album.ui
+package com.ym.album.ui.activity
 
 import android.Manifest
 import android.content.Intent
@@ -14,11 +14,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.ym.album.R
-import com.ym.album.utils.CommonUtil
+import com.ym.album.ui.BaseActivity
 import com.ym.album.utils.PhotoUtils
+import com.ym.common.utils.CommonUtil
 import java.io.File
 
-import com.ym.album.utils.CommonUtil.hasSdcard
+import com.ym.common.utils.CommonUtil.hasSdcard
 import java.lang.Exception
 import java.util.*
 
@@ -67,7 +68,7 @@ class CropActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_takePhoto ->{
                 requestPermissions(this,
                     arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE),
-                    object :RequestPermissionCallBack{
+                    object : RequestPermissionCallBack {
                         override fun granted() {
                             if (hasSdcard()){
 //                                photoImage = TimeUtil.dateToStr(Date(),"yyyy_MMdd_hhmmss")+".jpg"
@@ -103,7 +104,7 @@ class CropActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_takeGallery ->{
                 requestPermissions(this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    object :RequestPermissionCallBack{
+                    object : RequestPermissionCallBack {
                         override fun granted() {
                             PhotoUtils.openPic(this@CropActivity, CODE_GALLERY_REQUEST);
                         }

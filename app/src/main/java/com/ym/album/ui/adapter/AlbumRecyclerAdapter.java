@@ -2,7 +2,6 @@ package com.ym.album.ui.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ym.album.R;
+import com.ym.common.utils.EmptyUtil;
+import com.ym.common.utils.LogUtil;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -40,17 +41,17 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
-        Log.d(TAG,"onBindViewHolder albumHashMap "+albumHashMap.);
-
-
-
-        albumViewHolder.tvAlbumName.setText((CharSequence) albumHashMap.get(position));
-        albumViewHolder.tvAlbumImageNum.setText("1");
-        Glide.with(context)
-                .asBitmap()
-                .load(albumHashMap.get(position).get(0))
-                .into(albumViewHolder.ivFirstImage);
-
+        LogUtil.d(TAG,"onBindViewHolder albumHashMap "+albumHashMap);
+        if (albumHashMap!=null && !albumHashMap.isEmpty()) {
+            albumViewHolder.tvAlbumName.setText((CharSequence) albumHashMap.get(position));
+            albumViewHolder.tvAlbumImageNum.setText("1");
+            LogUtil.d(TAG,"position="+albumHashMap.get(position));
+            // TODO null object
+            Glide.with(context)
+                    .asBitmap()
+                    .load(albumHashMap.get(position).get(0))
+                    .into(albumViewHolder.ivFirstImage);
+        }
     }
 
     @Override

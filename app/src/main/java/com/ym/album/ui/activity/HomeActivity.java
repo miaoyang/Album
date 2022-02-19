@@ -1,4 +1,4 @@
-package com.ym.album.ui;
+package com.ym.album.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

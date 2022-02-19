@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/btn_selected.xml" value="0.22685185185185186" />
         <entry key="app/src/main/res/drawable/checkbox_checked_ic.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/drawable/checkbox_disable_ic.xml" value="0.34814814814814815" />
         <entry key="app/src/main/res/drawable/checkbox_selector.xml" value="0.34814814814814815" />
@@ -14,10 +15,14 @@
         <entry key="app/src/main/res/drawable/selector_relative.xml" value="0.15092592592592594" />
         <entry key="app/src/main/res/drawable/selector_search.xml" value="0.15092592592592594" />
         <entry key="app/src/main/res/layout/activity_crop.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_forget_password.xml" value="0.23565366440925045" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_image_preview.xml" value="0.10740740740740741" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2818609117237937" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1398148148148148" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.1634963768115942" />
+        <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/layout/fragment_album.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.20491388044579534" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
@@ -37,5 +42,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1634963768115942" />
+      </ProjectState>
+    </option>
   </component>
 </project>

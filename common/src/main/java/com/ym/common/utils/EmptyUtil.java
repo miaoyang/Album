@@ -1,8 +1,9 @@
-package com.ym.album.utils;
+package com.ym.common.utils;
 
 import android.text.TextUtils;
 
 import java.util.List;
+import java.util.Map;
 
 public class EmptyUtil {
     public static boolean strEmpty(String str){
