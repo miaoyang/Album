@@ -2,6 +2,7 @@ package com.ym.album.ui.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,16 +48,29 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             albumViewHolder.tvAlbumImageNum.setText("1");
             LogUtil.d(TAG,"position="+albumHashMap.get(position));
             // TODO null object
-            Glide.with(context)
-                    .asBitmap()
-                    .load(albumHashMap.get(position).get(0))
-                    .into(albumViewHolder.ivFirstImage);
+            String loadImageStr = getImage(position);
+            if (!TextUtils.isEmpty(loadImageStr)) {
+                Glide.with(context)
+                        .asBitmap()
+                        .load(loadImageStr)
+                        .into(albumViewHolder.ivFirstImage);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
         return albumHashMap==null?0:albumHashMap.size();
+    }
+
+    private String getImage(int pos){
+        if (albumHashMap != null && albumHashMap.size()>0){
+            List<String> list= albumHashMap.get(pos);
+            if (list != null){
+                return list.get(0);
+            }
+        }
+        return "";
     }
 
     private static class AlbumViewHolder extends RecyclerView.ViewHolder{

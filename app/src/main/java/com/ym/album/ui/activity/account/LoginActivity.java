@@ -141,25 +141,43 @@ public class LoginActivity extends BaseActivity {
 
                     // read from room
                     ThreadPoolUtil.diskExe(()->{
-                        UserInfo userInfo = AppDataBase.getInstance().userDao().selectByUsername(userName);
-                        if (userInfo != null){
-                            if (userInfo.getPassword().equals(password)){
-                                LogUtil.d(TAG,"login success! userName="+userName);
+                        UserInfo userInfoName = AppDataBase.getInstance().userDao().selectByUsername(userName);
+                        UserInfo userInfoTel = AppDataBase.getInstance().userDao().selectByTelephone(userName);
+                        if (userInfoName != null ){
+                            if (userInfoName.getPassword().equals(password)){
+                                LogUtil.d(TAG,"phone login success! userName="+userName);
                                 ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
                                 if (cbRememberPassword.isChecked()){
                                     SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_USER_NAME,"");
                                     SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_PASSWORD,"");
                                     // 存在bug，多个账号切换问题
-                                    LogUtil.d(TAG,"save username and password in sp!");
+                                    LogUtil.d(TAG,"phone save username and password in sp!");
                                 }
                             }else {
                                 runOnUiThread(()->{
                                     etPassword.setText("");
                                     ToastUtil.showShort(AlbumApp.getApp(),"输入密码错误，请重新输入！");
                                 });
-                                LogUtil.d(TAG,"password is error userName="+userName);
+                                LogUtil.d(TAG,"phone password is error userName="+userName);
                             }
-                        }else{
+                        }else if (userInfoTel != null){
+                            if (userInfoTel.getPassword().equals(password)){
+                                LogUtil.d(TAG,"tel login success! userName="+userName);
+                                ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
+                                if (cbRememberPassword.isChecked()){
+                                    SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_USER_NAME,"");
+                                    SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_PASSWORD,"");
+                                    // 存在bug，多个账号切换问题
+                                    LogUtil.d(TAG,"tel save username and password in sp!");
+                                }
+                            }else {
+                                runOnUiThread(()->{
+                                    etPassword.setText("");
+                                    ToastUtil.showShort(AlbumApp.getApp(),"输入密码错误，请重新输入！");
+                                });
+                                LogUtil.d(TAG,"tel password is error userName="+userName);
+                            }
+                        }else {
                             runOnUiThread(()->{
                                 ToastUtil.showShort(AlbumApp.getApp(),"未注册账号，请注册账号！");
                             });
@@ -181,5 +199,4 @@ public class LoginActivity extends BaseActivity {
             ARouter.getInstance().build(PathConfig.Account.FORGET_PASSWORD).navigation();
         });
     }
-
 }

@@ -74,14 +74,17 @@ public class ForgetPasswordActivity extends BaseActivity {
                 String verifyCode = mEtInputVerifyCode.getText().toString();
                 if (!TextUtils.isEmpty(inputPhone)){
                     ToastUtil.showShort(mContext,"输入的手机号为空！");
+                    return;
                 }
 
                 if (!ValidatorUtil.isMobile(inputPhone)){
                     ToastUtil.showShort(mContext,"输入的手机号格式不对，请重新输入！");
+                    return;
                 }
 
                 if (TextUtils.isEmpty(verifyCode)){
                     ToastUtil.showShort(mContext,"输入的验证码为空，请重新输入！");
+                    return;
                 }
                 ThreadPoolUtil.diskExe(()->{
                     UserInfo userInfo = AppDataBase.getInstance().userDao().selectByTelephone(inputPhone);
