@@ -22,6 +22,7 @@
     <string name="home_recommend">为您推荐</string>
     <string name="home_relatives">相薄</string>
     <string name="home_search">搜索</string>
+    <string name="home_me">我的</string>
 
     <string name="logo_name">Album</string>
 
@@ -66,5 +67,18 @@
     <string name="et_reset_password">设置6-18位登录密码</string>
     <string name="et_reset_password_again">重新输入一次密码</string>
     <string name="bt_reset_finish">完成</string>
+
+    <!--click image-->
+    <string name="tv_year_month_day">2022年02月22日</string>
+    <string name="tv_hour_min">22:22</string>
+    <string name="tv_image_send">发送</string>
+    <string name="tv_image_edit">编辑</string>
+    <string name="tv_image_collect">收藏</string>
+    <string name="tv_image_delete">删除</string>
+    <string name="tv_image_more">更多</string>
+
+    <!--personal-->
+    <string name="tv_person_username">yangmiao</string>
+    <string name="tv_person_tel">1111</string>
 
 </resources>

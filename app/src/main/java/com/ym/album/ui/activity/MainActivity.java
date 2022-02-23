@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
         mFragmentsList.add(SelectImageFragment.newInstance());
         mFragmentsList.add(BlankFragment.newInstance("为您推荐"));
         mFragmentsList.add(AlbumFragment.newInstance());
-        mFragmentsList.add(BlankFragment.newInstance("搜索"));
+        mFragmentsList.add(BlankFragment.newInstance("我的"));
         Log.d(TAG," list "+mFragmentsList);
 
         mHomeAdapter = new HomeAdapter(this, mFragmentsList);

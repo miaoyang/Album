@@ -15,4 +15,9 @@ public interface PathConfig {
         String MAIN = "/main";
         String MAIN_ACTIVITY = MAIN + "/album";
     }
+
+    interface Image{
+        String IMAGE = "/image";
+        String IMAGE_CLICK = IMAGE + "/click";
+    }
 }

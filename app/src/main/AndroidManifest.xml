@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Album.NoActionBar"
         tools:ignore="Instantiatable">
         <activity
+            android:name=".ui.activity.image.ImageClickActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.account.ResetPasswordActivity"
             android:exported="false" />
         <activity

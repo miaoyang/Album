@@ -6,8 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,7 +19,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.gyf.immersionbar.ImmersionBar;
+import com.ym.album.R;
 import com.ym.album.app.config.ARouterConfig;
+import com.ym.album.app.config.StyleConfig;
 import com.ym.common.config.DebugConfig;
 import com.ym.common.utils.CrashHandlerUtil;
 
@@ -35,6 +41,14 @@ public class BaseActivity extends AppCompatActivity {
         CrashHandlerUtil.getInstance().init(this);
         initConfig();
         ARouter.getInstance().inject(this);
+//        if (StyleConfig.isSetStatusBar){
+//            steepStatusBar();
+//        }
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.transparent)
+                .statusBarDarkFont(true)
+                .fitsSystemWindows(false)
+                .init();
     }
 
     @Override
@@ -134,5 +148,19 @@ public class BaseActivity extends AppCompatActivity {
         void granted();
         void denied();
     }
+
+    private void steepStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 透明状态栏
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 透明导航栏
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+
+    }
+
+
 
 }

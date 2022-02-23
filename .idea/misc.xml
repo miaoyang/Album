@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/layout/activity_crop.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_forget_password.xml" value="0.23565366440925045" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_image_click.xml" value="0.27441285537700866" />
         <entry key="app/src/main/res/layout/activity_image_preview.xml" value="0.10740740740740741" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2818609117237937" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -28,6 +29,7 @@
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_personal.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/layout/fragment_select_image.xml" value="0.33" />
         <entry key="app/src/main/res/layout/image_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/image_select_item.xml" value="0.1" />

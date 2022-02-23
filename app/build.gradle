@@ -85,4 +85,8 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.1'
     kapt 'com.alibaba:arouter-compiler:1.5.1'
 
+    // StatusBar
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+
+
 }

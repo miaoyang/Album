@@ -26,8 +26,8 @@
             android:id="@+id/rb_home_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ym:rb_width="30dp"
-            ym:rb_height="30dp"
+            ym:rb_width="@dimen/dp_24"
+            ym:rb_height="@dimen/dp_24"
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
@@ -38,14 +38,14 @@
             android:paddingBottom="5dp"
             android:text="@string/home_album"
             android:textColor="@color/selector_rg"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp_16" />
 
         <com.ym.album.ui.ui.DecRadioButton
             android:id="@+id/rb_home_recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ym:rb_width="30dp"
-            ym:rb_height="30dp"
+            ym:rb_width="@dimen/dp_24"
+            ym:rb_height="@dimen/dp_24"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/selector_recommend"
@@ -55,14 +55,14 @@
             android:paddingBottom="5dp"
             android:text="@string/home_recommend"
             android:textColor="@color/selector_rg"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp_16" />
 
         <com.ym.album.ui.ui.DecRadioButton
             android:id="@+id/rb_home_relative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ym:rb_width="30dp"
-            ym:rb_height="30dp"
+            ym:rb_width="@dimen/dp_24"
+            ym:rb_height="@dimen/dp_24"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/selector_relative"
@@ -72,14 +72,14 @@
             android:paddingBottom="5dp"
             android:text="@string/home_relatives"
             android:textColor="@color/selector_rg"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp_16" />
 
         <com.ym.album.ui.ui.DecRadioButton
             android:id="@+id/rb_home_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ym:rb_width="30dp"
-            ym:rb_height="30dp"
+            ym:rb_width="@dimen/dp_24"
+            ym:rb_height="@dimen/dp_24"
             android:layout_weight="1"
             android:drawableTop="@drawable/selector_search"
             android:button="@null"
@@ -87,9 +87,9 @@
             android:gravity="center"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="@string/home_search"
+            android:text="@string/home_me"
             android:textColor="@color/selector_rg"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp_16" />
 
     </RadioGroup>
 

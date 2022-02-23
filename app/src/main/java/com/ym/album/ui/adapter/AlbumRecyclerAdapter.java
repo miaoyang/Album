@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.ym.album.R;
 import com.ym.common.utils.EmptyUtil;
 import com.ym.common.utils.LogUtil;
+import com.ym.common.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,7 +37,29 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_album_layout,parent,false);
-        return new AlbumViewHolder(view);
+        final AlbumViewHolder holder = new AlbumViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showShort(context,"点击触发");
+            }
+        });
+        holder.ivFirstImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = holder.getAdapterPosition();
+                ToastUtil.showShort(context,"短按触发 pos="+pos);
+            }
+        });
+        holder.ivFirstImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int pos = holder.getAdapterPosition();
+                ToastUtil.showShort(context,"长按触发 pos="+pos);
+                return true;
+            }
+        });
+        return holder;
     }
 
     @Override
