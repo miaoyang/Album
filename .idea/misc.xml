@@ -22,14 +22,17 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2818609117237937" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1398148148148148" />
+        <entry key="app/src/main/res/layout/activity_person_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.1634963768115942" />
+        <entry key="app/src/main/res/layout/default_loading_page.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/layout/fragment_album.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.20491388044579534" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_personal.xml" value="0.1634963768115942" />
+        <entry key="app/src/main/res/layout/fragment_person_info.xml" value="0.340182342307834" />
+        <entry key="app/src/main/res/layout/fragment_personal.xml" value="0.28414548114665505" />
         <entry key="app/src/main/res/layout/fragment_select_image.xml" value="0.33" />
         <entry key="app/src/main/res/layout/image_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/image_select_item.xml" value="0.1" />

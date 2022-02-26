@@ -26,7 +26,9 @@
     <dimen name="dp_120">120dp</dimen>
     <dimen name="dp_140">140dp</dimen>
     <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_220">220dp</dimen>
     <dimen name="dp_230">230dp</dimen>
+    <dimen name="dp_240">240dp</dimen>
     <dimen name="dp_250">250dp</dimen>
     <dimen name="dp_270">270dp</dimen>
     <dimen name="dp_300">300dp</dimen>

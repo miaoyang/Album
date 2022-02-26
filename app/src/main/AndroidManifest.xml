@@ -17,6 +17,11 @@
         android:theme="@style/Theme.Album.NoActionBar"
         tools:ignore="Instantiatable">
         <activity
+            android:name=".ui.activity.personal.PersonInfoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_person_info"
+            android:theme="@style/Theme.Album.NoActionBar.NoActionBar" />
+        <activity
             android:name=".ui.activity.image.ImageClickActivity"
             android:exported="false" />
         <activity

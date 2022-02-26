@@ -1,5 +1,8 @@
 package com.ym.album.ui.activity.account;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
@@ -110,6 +113,11 @@ public class LoginActivity extends BaseActivity {
         if (!TextUtils.isEmpty(password)){
             etPassword.setText(password);
         }
+
+        @SuppressLint("ResourceType")
+        Animator loginAnimator = AnimatorInflater.loadAnimator(mContext,R.anim.anim_rotate_login);
+        loginAnimator.setTarget(btLogin);
+        loginAnimator.start();
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override

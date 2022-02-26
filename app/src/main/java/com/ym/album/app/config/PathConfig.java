@@ -20,4 +20,10 @@ public interface PathConfig {
         String IMAGE = "/image";
         String IMAGE_CLICK = IMAGE + "/click";
     }
+
+    interface Person{
+        String PERSON = "/person";
+        String PERSON_HOME = PERSON + "/home";
+        String PERSON_INFO = PERSON + "/person_info";
+    }
 }

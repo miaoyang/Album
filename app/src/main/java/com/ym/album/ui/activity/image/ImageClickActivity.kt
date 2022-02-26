@@ -51,28 +51,29 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
     }
 
     override fun onClick(p: View?) {
-        when(p?.id){
-            R.id.iv_image_backup ->{
+        when(p){
+            mIvImageBackup ->{
+                LogUtil.d(TAG,"onClick(): backup to image home")
                 ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation()
             }
-            R.id.iv_switch_landscape ->{
+            mIvImageSwitch ->{
                 // TODO
                 LogUtil.d(TAG,"onClick(): switch landscape")
             }
 
-            R.id.iv_image_send ->{
+            mIvSend ->{
                 LogUtil.d(TAG,"onClick(): send")
             }
-            R.id.iv_image_edit ->{
+            mIvEdit ->{
                 LogUtil.d(TAG,"onClick(): edit")
             }
-            R.id.iv_image_collect ->{
+            mIvCollect->{
                 LogUtil.d(TAG,"onClick(): collect")
             }
-            R.id.iv_image_delete ->{
+            mIvDelete ->{
                 LogUtil.d(TAG,"onClick(): delete")
             }
-            R.id.iv_image_more ->{
+            mIvMore ->{
                 LogUtil.d(TAG,"onClick(): more")
             }
 
@@ -81,6 +82,7 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
 
     private fun initView(){
         mIvImageBackup = findViewById(R.id.iv_image_backup)
+        mIvImageBackup?.setOnClickListener(this)
         mTvYearMonthDay = findViewById(R.id.tv_year_month_day)
         mTvHourMin = findViewById(R.id.tv_hour_min)
         mIvImageSwitch = findViewById(R.id.iv_switch_landscape)
@@ -96,8 +98,8 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
 
     private fun handlerData(){
         val date = Date(System.currentTimeMillis())
-        mTvYearMonthDay?.setText(TimeUtil.dateToStr(date,"yyyy年MM月dd日"))
-        mTvHourMin?.setText(TimeUtil.dateToStr(date,"HH:mm"))
+        mTvYearMonthDay?.text = (TimeUtil.dateToStr(date,"yyyy年MM月dd日"))
+        mTvHourMin?.text = TimeUtil.dateToStr(date,"HH:mm")
 
         mIvMiddleImage?.let { Glide.with(mContext).load(clickItemImage).into(it) }
 

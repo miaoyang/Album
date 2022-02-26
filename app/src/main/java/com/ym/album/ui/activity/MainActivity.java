@@ -10,6 +10,7 @@ import com.ym.album.ui.BaseActivity;
 import com.ym.album.ui.adapter.HomeAdapter;
 import com.ym.album.ui.fragment.AlbumFragment;
 import com.ym.album.ui.fragment.BlankFragment;
+import com.ym.album.ui.fragment.person.PersonalFragment;
 import com.ym.album.ui.fragment.SelectImageFragment;
 
 import android.annotation.SuppressLint;
@@ -52,7 +53,7 @@ public class MainActivity extends BaseActivity {
         mFragmentsList.add(SelectImageFragment.newInstance());
         mFragmentsList.add(BlankFragment.newInstance("为您推荐"));
         mFragmentsList.add(AlbumFragment.newInstance());
-        mFragmentsList.add(BlankFragment.newInstance("我的"));
+        mFragmentsList.add(PersonalFragment.newInstance());
         Log.d(TAG," list "+mFragmentsList);
 
         mHomeAdapter = new HomeAdapter(this, mFragmentsList);

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -23,6 +24,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.ym.album.R;
 import com.ym.album.app.config.ARouterConfig;
 import com.ym.album.app.config.StyleConfig;
+import com.ym.album.event.EventBusUtil;
 import com.ym.common.config.DebugConfig;
 import com.ym.common.utils.CrashHandlerUtil;
 
@@ -49,6 +51,7 @@ public class BaseActivity extends AppCompatActivity {
                 .statusBarDarkFont(true)
                 .fitsSystemWindows(false)
                 .init();
+        EventBusUtil.register(this);
     }
 
     @Override
@@ -143,6 +146,11 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusUtil.unregister(this);
+    }
 
     public interface RequestPermissionCallBack {
         void granted();
@@ -161,6 +169,8 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-
+    protected <T extends View> T f(int resId) {
+        return (T) super.findViewById(resId);
+    }
 
 }

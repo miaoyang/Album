@@ -79,6 +79,25 @@
 
     <!--personal-->
     <string name="tv_person_username">yangmiao</string>
-    <string name="tv_person_tel">1111</string>
+    <string name="tv_person_sign">好好拥抱生活，过好自己的人生</string>
+
+    <string name="iv_person_little_beauty">我的小美好</string>
+    <string name="iv_person_emoji">表情包</string>
+    <string name="iv_person_recently_delete">最近删除</string>
+    <string name="iv_person_up_and_download">上传下载管理</string>
+    <string name="iv_person_setting">设置</string>
+
+    <string name="tv_person_info_text">个人信息</string>
+    <string name="tv_person_info_head_portrait">头像</string>
+    <string name="tv_person_info_username">名字</string>
+    <string name="tv_person_info_username_temp">张三</string>
+    <string name="tv_person_info_my_sign">个性签名</string>
+    <string name="tv_person_info_my_qr_code">我的二维码</string>
+    <string name="tv_person_info_my_local_address">我的地址</string>
+    <string name="title_activity_person_info">PersonInfoActivity</string>
+
+    <!--loading-->
+    <string name="tv_app_loading_text">努力加载中...</string>
+
 
 </resources>
