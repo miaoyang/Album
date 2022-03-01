@@ -43,7 +43,7 @@ public class ForgetPasswordActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_forget_password;
     }
 
     @Override

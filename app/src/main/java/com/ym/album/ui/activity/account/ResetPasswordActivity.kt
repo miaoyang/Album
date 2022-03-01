@@ -46,7 +46,7 @@ class ResetPasswordActivity : BaseActivity() {
     }
 
     override fun getLayoutId(): Int {
-        TODO("Not yet implemented")
+        return R.layout.activity_reset_password
     }
 
     override fun initView(){
