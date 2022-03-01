@@ -1,10 +1,9 @@
 package com.ym.album.app.config;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ym.common.config.DebugConfig;
+import com.ym.common_util.config.DebugConfig;
 
 
 public class ARouterConfig {

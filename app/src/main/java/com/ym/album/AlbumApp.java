@@ -5,7 +5,8 @@ import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.weavey.loading.lib.LoadingLayout;
 import com.ym.album.app.config.ARouterConfig;
-import com.ym.common.utils.LogUtil;
+import com.ym.common_util.utils.CrashHandlerUtil;
+import com.ym.common_util.utils.LogUtil;
 
 public class AlbumApp extends Application {
     private static final String TAG = "AlbumApp";
@@ -21,6 +22,7 @@ public class AlbumApp extends Application {
         sInstance = this;
         ARouterConfig.init(this);
         initLoading();
+        CrashHandlerUtil.getInstance().init(this);
     }
 
     public static AlbumApp getApp(){

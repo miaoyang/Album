@@ -2,14 +2,13 @@ package com.ym.album.ui.activity.personal
 
 import android.os.Bundle
 import android.widget.ImageView
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ym.album.R
 import com.ym.album.app.config.PathConfig
-import com.ym.album.ui.BaseActivity
-import com.ym.common.utils.LogUtil
+import com.ym.album.base.BaseActivity
+import com.ym.common_util.utils.LogUtil
 
 @Route(path = PathConfig.Person.PERSON_INFO)
 class PersonInfoActivity : BaseActivity() {
@@ -25,14 +24,18 @@ class PersonInfoActivity : BaseActivity() {
         ButterKnife.bind(this)
         ARouter.getInstance().inject(this)
         initView()
-        handlerData()
+        initData()
     }
 
-    private fun initView(){
+    override fun getLayoutId(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun initView(){
         mIvHeadBackup = findViewById(R.id.iv_person_info_backup)
     }
 
-    private fun handlerData(){
+    override fun initData() {
         mIvHeadBackup?.setOnClickListener {
             LogUtil.d(TAG,"handlerData(): ARouter before")
             ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation()

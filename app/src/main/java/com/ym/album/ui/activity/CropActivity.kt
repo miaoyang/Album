@@ -14,14 +14,14 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.ym.album.R
-import com.ym.album.ui.BaseActivity
+import com.ym.album.base.BaseActivity
 import com.ym.album.utils.PhotoUtils
-import com.ym.common.utils.CommonUtil
+import com.ym.album.utils.RequestPermissionsUtil
+import com.ym.common_util.utils.CommonUtil
 import java.io.File
 
-import com.ym.common.utils.CommonUtil.hasSdcard
+import com.ym.common_util.utils.CommonUtil.hasSdcard
 import java.lang.Exception
-import java.util.*
 
 class CropActivity : BaseActivity(), View.OnClickListener {
     companion object{
@@ -66,9 +66,9 @@ class CropActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_takePhoto ->{
-                requestPermissions(this,
+                RequestPermissionsUtil.requestPermissions(this,
                     arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE),
-                    object : RequestPermissionCallBack {
+                    object : RequestPermissionsUtil.RequestPermissionCallBack {
                         override fun granted() {
                             if (hasSdcard()){
 //                                photoImage = TimeUtil.dateToStr(Date(),"yyyy_MMdd_hhmmss")+".jpg"
@@ -102,9 +102,9 @@ class CropActivity : BaseActivity(), View.OnClickListener {
                     })
             }
             R.id.btn_takeGallery ->{
-                requestPermissions(this,
+                RequestPermissionsUtil.requestPermissions(this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    object : RequestPermissionCallBack {
+                    object : RequestPermissionsUtil.RequestPermissionCallBack {
                         override fun granted() {
                             PhotoUtils.openPic(this@CropActivity, CODE_GALLERY_REQUEST);
                         }
@@ -158,6 +158,18 @@ class CropActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun getLayoutId(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun initView() {
+        TODO("Not yet implemented")
+    }
+
+    override fun initData() {
+        TODO("Not yet implemented")
     }
 
     private fun getImageUri(name:String): Uri? {

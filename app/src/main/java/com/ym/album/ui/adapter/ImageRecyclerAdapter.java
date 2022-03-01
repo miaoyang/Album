@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig;
 import com.ym.album.ui.activity.Constant;
-import com.ym.common.utils.ToastUtil;
+import com.ym.common_util.utils.ToastUtil;
 
 import java.util.List;
 

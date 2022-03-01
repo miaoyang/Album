@@ -6,7 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig;
-import com.ym.album.ui.BaseActivity;
+import com.ym.album.base.BaseActivity;
 import com.ym.album.ui.adapter.HomeAdapter;
 import com.ym.album.ui.fragment.AlbumFragment;
 import com.ym.album.ui.fragment.BlankFragment;
@@ -45,7 +45,13 @@ public class MainActivity extends BaseActivity {
         mViewPager.unregisterOnPageChangeCallback(mPageChangeListener);
     }
 
-    private void initView(){
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_home;
+    }
+
+    @Override
+    public void initView(){
         mViewPager = findViewById(R.id.fragment_vp);
         mRadioGroup = findViewById(R.id.tabs_rg);
 
@@ -62,6 +68,11 @@ public class MainActivity extends BaseActivity {
 
         mViewPager.registerOnPageChangeCallback(mPageChangeListener);
         mViewPager.setCurrentItem(0);
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     private final ViewPager2.OnPageChangeCallback mPageChangeListener = new ViewPager2.OnPageChangeCallback() {

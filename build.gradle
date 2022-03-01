@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,4 +24,5 @@ ext {
     targetSdkVersion = 30
     //enableMethodTrace = gradle.startParameter.taskNames.contains(":home:assembleDebug")
     enableMethodTrace = false//默认关闭，需要时可本地打开调试。暂时只支持DEBUG模式下打开。
+    kotlinVersion = "1.5.30"
 }

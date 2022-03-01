@@ -1,24 +1,19 @@
 package com.ym.album.ui.activity.account;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ym.album.AlbumApp;
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig;
+import com.ym.album.base.BaseActivity;
 import com.ym.album.room.AppDataBase;
 import com.ym.album.room.model.UserInfo;
-import com.ym.album.ui.BaseActivity;
 import com.ym.album.ui.activity.Constant;
-import com.ym.common.utils.LogUtil;
-import com.ym.common.utils.ThreadPoolUtil;
-import com.ym.common.utils.ToastUtil;
-import com.ym.common.utils.ValidatorUtil;
+import com.ym.common_util.utils.LogUtil;
+import com.ym.common_util.utils.ThreadPoolUtil;
+import com.ym.common_util.utils.ToastUtil;
+import com.ym.common_util.utils.ValidatorUtil;
 
 import android.content.Context;
-import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -46,10 +41,16 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         mContext = this;
         initView();
-        handlerData();
+        initData();
     }
 
-    private void initView(){
+    @Override
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initView(){
         mEtInputPhoneNum = findViewById(R.id.et_input_iphone_number);
         mBtInputCode = findViewById(R.id.bt_send_code);
         mEtInputCode = findViewById(R.id.et_input_code);
@@ -58,7 +59,8 @@ public class RegisterActivity extends BaseActivity {
         mBtRegister = findViewById(R.id.bt_register_account);
     }
 
-    private void handlerData(){
+    @Override
+    public void initData() {
 
         mBtInputCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +139,6 @@ public class RegisterActivity extends BaseActivity {
                         .navigation();
             }
         });
-
-
     }
 
 }

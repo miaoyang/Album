@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ym.album.R
 import com.ym.album.app.config.PathConfig
-import com.ym.common.utils.LogUtil
+import com.ym.common_util.utils.LogUtil
 
 @Route(path = PathConfig.Person.PERSON_HOME)
 class PersonalFragment : Fragment() {

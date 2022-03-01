@@ -1,7 +1,6 @@
 package com.ym.album.ui.adapter;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ym.album.R;
-import com.ym.common.utils.EmptyUtil;
-import com.ym.common.utils.LogUtil;
-import com.ym.common.utils.ToastUtil;
+import com.ym.common_util.utils.LogUtil;
+import com.ym.common_util.utils.ToastUtil;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

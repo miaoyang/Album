@@ -1,42 +1,33 @@
 package com.ym.album.ui.activity.account;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.android.material.tabs.TabLayout;
 import com.ym.album.AlbumApp;
 import com.ym.album.app.config.PathConfig;
 import com.ym.album.app.config.SPConfig;
+import com.ym.album.base.BaseMvpActivity;
 import com.ym.album.room.AppDataBase;
 import com.ym.album.room.model.UserInfo;
-import com.ym.album.ui.BaseActivity;
 import com.ym.album.R;
-import com.ym.common.utils.LogUtil;
-import com.ym.common.utils.SpUtil;
-import com.ym.common.utils.ThreadPoolUtil;
-import com.ym.common.utils.ToastUtil;
-import com.ym.common.utils.ValidatorUtil;
+import com.ym.common_util.utils.LogUtil;
+import com.ym.common_util.utils.SpUtil;
+import com.ym.common_util.utils.ThreadPoolUtil;
+import com.ym.common_util.utils.ToastUtil;
+import com.ym.common_util.utils.ValidatorUtil;
 
 import java.sql.Date;
 @Route(path = PathConfig.Account.LOGIN)
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements AccountContract.View {
     private static final String TAG = "LoginActivity";
 
     // register parameters
@@ -77,19 +68,28 @@ public class LoginActivity extends BaseActivity {
         LogUtil.d(TAG,"onDestroy(): ");
     }
 
-    private void initView(){
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    public void initView(){
         etUserName = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
         cbRememberPassword = findViewById(R.id.cb_remember_password);
         btLogin = findViewById(R.id.bt_login);
         btRegister = findViewById(R.id.bt_register);
         mBtForgetPassword = findViewById(R.id.bt_forget_password);
-    }
 
+        mPresenter = new AccountPresenter();
+        mPresenter.attachView(this);
+    }
+    @Override
     public void initData(){
         // TODO delete
         Date date = new Date(System.currentTimeMillis());
-        UserInfo userInfoTemp = new UserInfo("yangmiao","123456","13340244009",
+        UserInfo userInfoTemp = new UserInfo("yangmiao","123456","13340244000",
                 "864412543@qq.com",26,date);
         ThreadPoolUtil.diskExe(()->{
             AppDataBase.getInstance().userDao().insertUserInfo(userInfoTemp);
@@ -114,10 +114,10 @@ public class LoginActivity extends BaseActivity {
             etPassword.setText(password);
         }
 
-        @SuppressLint("ResourceType")
-        Animator loginAnimator = AnimatorInflater.loadAnimator(mContext,R.anim.anim_rotate_login);
-        loginAnimator.setTarget(btLogin);
-        loginAnimator.start();
+//        @SuppressLint("ResourceType")
+//        Animator loginAnimator = AnimatorInflater.loadAnimator(mContext,R.anim.anim_rotate_login);
+//        loginAnimator.setTarget(btLogin);
+//        loginAnimator.start();
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,5 +206,25 @@ public class LoginActivity extends BaseActivity {
         mBtForgetPassword.setOnClickListener((view)->{
             ARouter.getInstance().build(PathConfig.Account.FORGET_PASSWORD).navigation();
         });
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(String errorMsg) {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
     }
 }

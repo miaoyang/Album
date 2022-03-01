@@ -1,7 +1,5 @@
 package com.ym.album.ui.activity.account;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,13 +11,13 @@ import android.widget.ImageView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ym.album.app.config.PathConfig;
+import com.ym.album.base.BaseActivity;
 import com.ym.album.room.AppDataBase;
 import com.ym.album.room.model.UserInfo;
-import com.ym.album.ui.BaseActivity;
 import com.ym.album.R;
-import com.ym.common.utils.ThreadPoolUtil;
-import com.ym.common.utils.ToastUtil;
-import com.ym.common.utils.ValidatorUtil;
+import com.ym.common_util.utils.ThreadPoolUtil;
+import com.ym.common_util.utils.ToastUtil;
+import com.ym.common_util.utils.ValidatorUtil;
 
 @Route(path = PathConfig.Account.FORGET_PASSWORD)
 public class ForgetPasswordActivity extends BaseActivity {
@@ -40,10 +38,16 @@ public class ForgetPasswordActivity extends BaseActivity {
         mContext = this;
 
         initView();
-        handlerData();
+        initData();
     }
 
-    private void initView(){
+    @Override
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initView(){
         mIvBackup = findViewById(R.id.forget_password_backup);
         mEtInputPhone = findViewById(R.id.et_input_iphone);
         mEtInputVerifyCode = findViewById(R.id.et_input_code);
@@ -51,7 +55,8 @@ public class ForgetPasswordActivity extends BaseActivity {
         mBtNextStep = findViewById(R.id.bt_next_step);
     }
 
-    private void handlerData(){
+    @Override
+    public void initData() {
         mIvBackup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

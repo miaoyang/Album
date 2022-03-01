@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ym.album.R;
-import com.ym.common.utils.EmptyUtil;
+import com.ym.common_util.utils.EmptyUtil;
 
 public class RatioFrameLayout extends FrameLayout {
     private float mWidthRatio;

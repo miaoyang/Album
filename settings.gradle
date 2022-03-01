@@ -8,4 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Album"
 include ':app'
-include ':common'
+include ':common_util'
+include ':common_res'
+include ':common_sdk'

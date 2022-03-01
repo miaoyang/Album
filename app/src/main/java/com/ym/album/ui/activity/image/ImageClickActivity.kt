@@ -11,10 +11,10 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.ym.album.R
 import com.ym.album.app.config.PathConfig
-import com.ym.album.ui.BaseActivity
+import com.ym.album.base.BaseActivity
 import com.ym.album.ui.activity.Constant
-import com.ym.common.utils.LogUtil
-import com.ym.common.utils.TimeUtil
+import com.ym.common_util.utils.LogUtil
+import com.ym.common_util.utils.TimeUtil
 import java.util.*
 
 @Route(path = PathConfig.Image.IMAGE_CLICK)
@@ -47,7 +47,11 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
         setContentView(R.layout.activity_image_click)
         mContext = this
         initView()
-        handlerData()
+        initData()
+    }
+
+    override fun getLayoutId(): Int {
+        TODO("Not yet implemented")
     }
 
     override fun onClick(p: View?) {
@@ -80,7 +84,7 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
         }
     }
 
-    private fun initView(){
+    override fun initView(){
         mIvImageBackup = findViewById(R.id.iv_image_backup)
         mIvImageBackup?.setOnClickListener(this)
         mTvYearMonthDay = findViewById(R.id.tv_year_month_day)
@@ -96,13 +100,12 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
         mIvMore = findViewById(R.id.iv_image_more)
     }
 
-    private fun handlerData(){
+    override fun initData() {
         val date = Date(System.currentTimeMillis())
         mTvYearMonthDay?.text = (TimeUtil.dateToStr(date,"yyyy年MM月dd日"))
         mTvHourMin?.text = TimeUtil.dateToStr(date,"HH:mm")
 
         mIvMiddleImage?.let { Glide.with(mContext).load(clickItemImage).into(it) }
-
     }
 
 

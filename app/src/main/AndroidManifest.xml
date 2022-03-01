@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/album_yellow"
         android:supportsRtl="true"
         android:theme="@style/Theme.Album.NoActionBar"
+        tools:replace="android:roundIcon,android:icon,android:theme"
         tools:ignore="Instantiatable">
         <activity
             android:name=".ui.activity.personal.PersonInfoActivity"
@@ -59,11 +60,6 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity
-            android:name=".ui.BaseActivity"
-            android:exported="true"
-            android:label="@string/title_activity_base"
-            android:theme="@style/Theme.Album.NoActionBar" />
         <activity
             android:name=".ui.activity.CropActivity"
             android:exported="true" />

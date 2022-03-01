@@ -1,25 +1,22 @@
 package com.ym.album.ui.activity.account
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.ym.album.ui.BaseActivity
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig
+import com.ym.album.base.BaseActivity
 import com.ym.album.room.AppDataBase
-import com.ym.album.room.model.UserInfo
 import com.ym.album.ui.activity.Constant
-import com.ym.common.utils.LogUtil
-import com.ym.common.utils.ThreadPoolUtil
-import com.ym.common.utils.ToastUtil
+import com.ym.common_util.utils.LogUtil
+import com.ym.common_util.utils.ThreadPoolUtil
+import com.ym.common_util.utils.ToastUtil
 
 @Route(path = PathConfig.Account.RESET_PASSWORD)
 class ResetPasswordActivity : BaseActivity() {
@@ -45,17 +42,21 @@ class ResetPasswordActivity : BaseActivity() {
         mContext = this
 //        ARouter.getInstance().inject(this)
         initView()
-        handlerData()
+        initData()
     }
 
-    private fun initView(){
+    override fun getLayoutId(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun initView(){
         mIvBackup = findViewById(R.id.reset_password_backup)
         mEtResetPassword = findViewById(R.id.et_reset_password)
         mEtRestPasswordAgain = findViewById(R.id.et_reset_password_again)
         mBtFinish = findViewById(R.id.bt_finish)
     }
 
-    private fun handlerData(){
+    override fun initData() {
         mIvBackup.setOnClickListener {
             ARouter.getInstance().build(PathConfig.Account.FORGET_PASSWORD).navigation()
         }
