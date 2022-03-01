@@ -28,7 +28,7 @@ class PersonInfoActivity : BaseActivity() {
     }
 
     override fun getLayoutId(): Int {
-        TODO("Not yet implemented")
+        return R.layout.activity_person_info
     }
 
     override fun initView(){

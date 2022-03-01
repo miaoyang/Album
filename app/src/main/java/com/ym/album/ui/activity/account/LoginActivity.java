@@ -1,7 +1,6 @@
 package com.ym.album.ui.activity.account;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,11 +35,11 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
     @Autowired(name = "password")
     String password;
 
-    private EditText etUserName;
-    private EditText etPassword;
-    private CheckBox cbRememberPassword;
-    private Button btLogin;
-    private Button btRegister;
+    private EditText mEtUserName;
+    private EditText mEtPassword;
+    private CheckBox mCbRememberPassword;
+    private Button mBtLogin;
+    private Button mBtRegister;
     private Button mBtForgetPassword; // forget password
 
     private Context mContext;
@@ -75,11 +74,11 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
 
     @Override
     public void initView(){
-        etUserName = findViewById(R.id.et_username);
-        etPassword = findViewById(R.id.et_password);
-        cbRememberPassword = findViewById(R.id.cb_remember_password);
-        btLogin = findViewById(R.id.bt_login);
-        btRegister = findViewById(R.id.bt_register);
+        mEtUserName = findViewById(R.id.et_username);
+        mEtPassword = findViewById(R.id.et_password);
+        mCbRememberPassword = findViewById(R.id.cb_remember_password);
+        mBtLogin = findViewById(R.id.bt_login);
+        mBtRegister = findViewById(R.id.bt_register);
         mBtForgetPassword = findViewById(R.id.bt_forget_password);
 
         mPresenter = new AccountPresenter();
@@ -96,35 +95,36 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
             LogUtil.d(TAG,"insert data success!");
         });
 
-        String spUserName = SpUtil.getInstance(AlbumApp.getApp()).getString(SPConfig.KEY_USER_NAME,"");
-        String spPassword = SpUtil.getInstance(AlbumApp.getApp()).getString(SPConfig.KEY_PASSWORD,"");
-        LogUtil.d(TAG,"onClick(): userName="+spUserName+" psd="+spPassword);
-        if (!TextUtils.isEmpty(spUserName) && !TextUtils.isEmpty(spPassword)){
-                etUserName.setText(spUserName);
-                etPassword.setText(spPassword);
-        }
-
-        if (!TextUtils.isEmpty(telephone)){
-            runOnUiThread(()->{
-                etUserName.setText(telephone);
-                LogUtil.d(TAG,"register username and password setText success!");
-            });
-        }
-        if (!TextUtils.isEmpty(password)){
-            etPassword.setText(password);
+        boolean isRememberPassword = SpUtil.getInstance(this).getBoolean(SPConfig.KEY_REMEMBER_PASSWORD,false);
+        if (isRememberPassword){
+            String spUserName = SpUtil.getInstance(this).getString(SPConfig.KEY_USER_NAME,"");
+            String spPassword = SpUtil.getInstance(this).getString(SPConfig.KEY_PASSWORD,"");
+            LogUtil.d(TAG,"onClick(): userName="+spUserName+" psd="+spPassword);
+            if (!TextUtils.isEmpty(spUserName) && !TextUtils.isEmpty(spPassword)){
+                mEtUserName.setText(spUserName);
+                mEtPassword.setText(spPassword);
+            }
+            mCbRememberPassword.setChecked(true);
         }
 
 //        @SuppressLint("ResourceType")
 //        Animator loginAnimator = AnimatorInflater.loadAnimator(mContext,R.anim.anim_rotate_login);
 //        loginAnimator.setTarget(btLogin);
 //        loginAnimator.start();
-
-        btLogin.setOnClickListener(new View.OnClickListener() {
+        mCbRememberPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etUserName != null && etPassword != null){
-                    String userName = etUserName.getText().toString();
-                    String password = etPassword.getText().toString();
+                if (mCbRememberPassword.isChecked()){
+                    SpUtil.getInstance(mContext).putBoolean(SPConfig.KEY_REMEMBER_PASSWORD,true);
+                }
+            }
+        });
+        mBtLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mEtUserName != null && mEtPassword != null){
+                    String userName = mEtUserName.getText().toString();
+                    String password = mEtPassword.getText().toString();
                     LogUtil.d(TAG,"userName="+userName+" password="+password);
                     if (TextUtils.isEmpty(userName)){
                         ToastUtil.showShort(mContext,"输入用户名为空！");
@@ -155,15 +155,18 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                             if (userInfoName.getPassword().equals(password)){
                                 LogUtil.d(TAG,"phone login success! userName="+userName);
                                 ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
-                                if (cbRememberPassword.isChecked()){
-                                    SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_USER_NAME,"");
-                                    SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_PASSWORD,"");
+                                if (mCbRememberPassword.isChecked()){
+                                    SpUtil.getInstance(mContext).putString(SPConfig.KEY_USER_NAME,userName);
+                                    SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,password);
                                     // 存在bug，多个账号切换问题
                                     LogUtil.d(TAG,"phone save username and password in sp!");
+                                }else {
+                                    SpUtil.getInstance(mContext).putString(SPConfig.KEY_USER_NAME,"");
+                                    SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,"");
                                 }
                             }else {
                                 runOnUiThread(()->{
-                                    etPassword.setText("");
+                                    mEtPassword.setText("");
                                     ToastUtil.showShort(AlbumApp.getApp(),"输入密码错误，请重新输入！");
                                 });
                                 LogUtil.d(TAG,"phone password is error userName="+userName);
@@ -172,15 +175,15 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                             if (userInfoTel.getPassword().equals(password)){
                                 LogUtil.d(TAG,"tel login success! userName="+userName);
                                 ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
-                                if (cbRememberPassword.isChecked()){
-                                    SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_USER_NAME,"");
-                                    SpUtil.getInstance(AlbumApp.getApp()).putString(SPConfig.KEY_PASSWORD,"");
+                                if (mCbRememberPassword.isChecked()){
+                                    SpUtil.getInstance(mContext).putString(SPConfig.KEY_USER_NAME,"");
+                                    SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,"");
                                     // 存在bug，多个账号切换问题
                                     LogUtil.d(TAG,"tel save username and password in sp!");
                                 }
                             }else {
                                 runOnUiThread(()->{
-                                    etPassword.setText("");
+                                    mEtPassword.setText("");
                                     ToastUtil.showShort(AlbumApp.getApp(),"输入密码错误，请重新输入！");
                                 });
                                 LogUtil.d(TAG,"tel password is error userName="+userName);
@@ -196,7 +199,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
             }
         });
 
-        btRegister.setOnClickListener(new View.OnClickListener() {
+        mBtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ARouter.getInstance().build(PathConfig.Account.REGISTER).navigation();

@@ -9,4 +9,5 @@ public class SPConfig {
     // Account
     public static final String KEY_USER_NAME = "user_name";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_REMEMBER_PASSWORD = "remember_password";
 }

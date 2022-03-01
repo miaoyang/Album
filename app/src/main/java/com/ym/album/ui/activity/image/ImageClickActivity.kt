@@ -51,7 +51,7 @@ class ImageClickActivity : BaseActivity(),View.OnClickListener {
     }
 
     override fun getLayoutId(): Int {
-        TODO("Not yet implemented")
+        return R.layout.activity_image_click
     }
 
     override fun onClick(p: View?) {
