@@ -111,6 +111,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
 //        Animator loginAnimator = AnimatorInflater.loadAnimator(mContext,R.anim.anim_rotate_login);
 //        loginAnimator.setTarget(btLogin);
 //        loginAnimator.start();
+
         mCbRememberPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +127,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                     String userName = mEtUserName.getText().toString();
                     String password = mEtPassword.getText().toString();
                     LogUtil.d(TAG,"userName="+userName+" password="+password);
+                    // TODO 区分手机号、邮箱、普通账号
                     if (TextUtils.isEmpty(userName)){
                         ToastUtil.showShort(mContext,"输入用户名为空！");
                         return;

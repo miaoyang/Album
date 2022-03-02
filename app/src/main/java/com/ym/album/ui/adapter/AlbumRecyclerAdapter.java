@@ -2,6 +2,7 @@ package com.ym.album.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.ym.album.R;
+import com.ym.album.ui.bean.AlbumBean;
 import com.ym.common_util.utils.LogUtil;
 import com.ym.common_util.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = AlbumRecyclerAdapter.class.getSimpleName();
 
-    private HashMap<String, List<String>> albumHashMap;
+    private ArrayList<AlbumBean> albumArrayList;
     private Context context;
 
-    public AlbumRecyclerAdapter(Context context,HashMap<String,List<String>> hashMap){
+    public AlbumRecyclerAdapter(Context context,ArrayList<AlbumBean> albumArrayList){
         this.context = context;
-        this.albumHashMap = hashMap;
+        this.albumArrayList = albumArrayList;
     }
 
     @NonNull
@@ -62,16 +68,19 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
-        LogUtil.d(TAG,"onBindViewHolder albumHashMap "+albumHashMap);
-        if (albumHashMap!=null && !albumHashMap.isEmpty()) {
-            albumViewHolder.tvAlbumName.setText((CharSequence) albumHashMap.get(position));
-            albumViewHolder.tvAlbumImageNum.setText("1");
-            LogUtil.d(TAG,"position="+albumHashMap.get(position));
-            // TODO null object
+        LogUtil.d(TAG,"onBindViewHolder albumHashMap "+albumArrayList);
+        if (albumArrayList!=null && !albumArrayList.isEmpty()) {
+            LogUtil.d(TAG,"onBindViewHolder(): albumName="+albumArrayList.get(position).getAlbumName());
+            LogUtil.d(TAG,"onBindViewHolder(): size="+albumArrayList.get(position).getAlbumArrayList().size());
+            albumViewHolder.tvAlbumName.setText((CharSequence) albumArrayList.get(position).getAlbumName());
+            albumViewHolder.tvAlbumImageNum.setText(String.valueOf(albumArrayList.get(position).getAlbumArrayList().size()));
+            LogUtil.d(TAG,"position="+albumArrayList.get(position));
+            // TODO
             String loadImageStr = getImage(position);
             if (!TextUtils.isEmpty(loadImageStr)) {
                 Glide.with(context)
                         .asBitmap()
+                        .apply(new RequestOptions().transform(new CenterCrop(),new RoundedCorners(20)))
                         .load(loadImageStr)
                         .into(albumViewHolder.ivFirstImage);
             }
@@ -80,14 +89,14 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return albumHashMap==null?0:albumHashMap.size();
+        return albumArrayList==null?0:albumArrayList.size();
     }
 
     private String getImage(int pos){
-        if (albumHashMap != null && albumHashMap.size()>0){
-            List<String> list= albumHashMap.get(pos);
-            if (list != null){
-                return list.get(0);
+        if (albumArrayList != null && albumArrayList.size()>0){
+            AlbumBean bean= albumArrayList.get(pos);
+            if (bean != null){
+                return bean.getAlbumArrayList().get(0).getImageUrl();
             }
         }
         return "";

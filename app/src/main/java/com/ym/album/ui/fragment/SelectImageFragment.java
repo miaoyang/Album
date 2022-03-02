@@ -33,7 +33,7 @@ import java.util.List;
 
 
 public class SelectImageFragment extends Fragment {
-    private static final String TAG = SelectImageFragment.class.getSimpleName();
+    private static final String TAG = "SelectImageFragment";
     private RecyclerView imageRecyclerView;
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
@@ -65,7 +65,7 @@ public class SelectImageFragment extends Fragment {
         }
         imageRecyclerView.setAdapter(imageRecyclerAdapter);
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
         imageRecyclerView.setLayoutManager(layoutManager);
 
         imageRecyclerView.scrollToPosition(0);

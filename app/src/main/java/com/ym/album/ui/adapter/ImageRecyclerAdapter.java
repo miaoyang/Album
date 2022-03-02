@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig;
 import com.ym.album.ui.activity.Constant;
@@ -62,6 +65,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         Glide.with(mContext)
                 .asBitmap()
                 .load(mStringList.get(position))
+                .apply(new RequestOptions().transform(new CenterCrop(),new RoundedCorners(20)))
                 .into(imageViewHolder.ivImage);
 
     }
