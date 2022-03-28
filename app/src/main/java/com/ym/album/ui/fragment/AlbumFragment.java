@@ -74,12 +74,16 @@ public class AlbumFragment extends BaseFragment {
 
         String albumJson = SpUtil.getInstance(getContext()).getString(AppConstant.ALBUM_LIST_KEY,"");
         long lastLoadingTime = SpUtil.getInstance(getContext()).getLong(AppConstant.LAST_LOADING_IMAGE,0L);
-        LogUtil.d(TAG,"onCreateView(): lastLoadingTime="+lastLoadingTime+" albumJson="+albumJson);
-        if (!TextUtils.isEmpty(albumJson) && System.currentTimeMillis()-lastLoadingTime<AppConstant.LOADING_IMAGE_ONE_DAY){
+        boolean isLessThanOneDay = System.currentTimeMillis()-lastLoadingTime<AppConstant.LOADING_IMAGE_ONE_DAY;
+        LogUtil.d(TAG,"onCreateView(): isLessThanOneDay="+isLessThanOneDay+" albumJson="+albumJson);
+        if (!TextUtils.isEmpty(albumJson) && isLessThanOneDay){
             albumAllList = new Gson().fromJson(albumJson,new TypeToken<ArrayList<AlbumBean>>(){}.getType());
             setRecyclerView();
         }else {
             loadingRefreshAnim(true);
+            ThreadPoolUtil.diskExe(()->{
+                ImageMediaUtil.getAlbumList(getContext(),getActivity());
+            });
         }
 
         return view;

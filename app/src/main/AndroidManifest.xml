@@ -6,19 +6,31 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <application
         android:name=".AlbumApp"
         android:allowBackup="true"
         android:icon="@mipmap/album_yellow"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/album_yellow"
         android:supportsRtl="true"
         android:theme="@style/Theme.Album.NoActionBar"
-        tools:replace="android:roundIcon,android:icon,android:theme"
         tools:ignore="Instantiatable"
-        android:requestLegacyExternalStorage="true">
+        tools:replace="android:roundIcon,android:icon,android:theme">
+        <receiver
+            android:name=".service.ImageReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.hardware.action.NEW_PICTURE"
+                    tools:ignore="BatteryLife" />
+                <action android:name="android.hardware.action.NEW_VIDEO"
+                    tools:ignore="BatteryLife" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ui.activity.personal.PersonInfoActivity"
             android:exported="false"
@@ -49,9 +61,9 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="true"
             android:label="@string/logo_name"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
