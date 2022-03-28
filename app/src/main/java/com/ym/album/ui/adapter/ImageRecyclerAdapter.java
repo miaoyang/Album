@@ -35,27 +35,6 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_image_layout,parent,false);
         final ImageViewHolder holder = new ImageViewHolder(view);
-
-        view.setOnClickListener(v->{
-            ToastUtil.showShort(mContext,"点击触发");
-        });
-
-        holder.ivImage.setOnClickListener(v->{
-            int pos = holder.getAdapterPosition();
-            ARouter.getInstance().build(PathConfig.Image.IMAGE_CLICK)
-                    .withString(Constant.Image.clickItemImage,mStringList.get(holder.getAdapterPosition()))
-                    .navigation();
-            ToastUtil.showShort(mContext,"短按触发 pos="+pos);
-        });
-
-        holder.ivImage.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                int pos = holder.getAdapterPosition();
-                ToastUtil.showShort(mContext,"长按触发 pos="+pos);
-                return true;
-            }
-        });
         return holder;
     }
 
@@ -67,6 +46,23 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 .load(mStringList.get(position))
                 .apply(new RequestOptions().transform(new CenterCrop(),new RoundedCorners(20)))
                 .into(imageViewHolder.ivImage);
+
+        imageViewHolder.ivImage.setOnClickListener(v->{
+            int pos = holder.getAdapterPosition();
+            ARouter.getInstance().build(PathConfig.Image.IMAGE_CLICK)
+                    .withString(Constant.Image.clickItemImage,mStringList.get(holder.getAdapterPosition()))
+                    .navigation();
+            ToastUtil.showShort(mContext,"短按触发 pos="+pos);
+        });
+
+        imageViewHolder.ivImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int pos = holder.getAdapterPosition();
+                ToastUtil.showShort(mContext,"长按触发 pos="+pos);
+                return true;
+            }
+        });
 
     }
 

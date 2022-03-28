@@ -83,8 +83,8 @@ class ResetPasswordActivity : BaseActivity() {
                         AppDataBase.getInstance().userDao().updateUserInfo(userInfo)
                         LogUtil.d(TAG,"handlerData(): update password success!")
                         ARouter.getInstance().build(PathConfig.Account.LOGIN)
-                            .withString(Constant.Account.telephone,resetTelephone)
-                            .withString(Constant.Account.password,resetPsd)
+                            .withString(Constant.Account.TELEPHONE,resetTelephone)
+                            .withString(Constant.Account.PASSWORD,resetPsd)
                             .navigation()
                     }
                 }

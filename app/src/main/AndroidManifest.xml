@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
 
     <application
         android:name=".AlbumApp"
@@ -16,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Album.NoActionBar"
         tools:replace="android:roundIcon,android:icon,android:theme"
-        tools:ignore="Instantiatable">
+        tools:ignore="Instantiatable"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".ui.activity.personal.PersonInfoActivity"
             android:exported="false"
@@ -46,12 +48,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.HomeActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true"
-            android:label="@string/logo_name">
+            android:label="@string/logo_name"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -68,7 +69,8 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.ym.album.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

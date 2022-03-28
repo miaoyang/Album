@@ -1,5 +1,6 @@
 package com.ym.album.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,8 +17,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.ym.album.R;
 import com.ym.album.ui.bean.AlbumBean;
+import com.ym.album.utils.StringUtil;
 import com.ym.common_util.utils.LogUtil;
 import com.ym.common_util.utils.ToastUtil;
 
@@ -68,8 +71,9 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
-        LogUtil.d(TAG,"onBindViewHolder albumHashMap "+albumArrayList);
+        LogUtil.d(TAG,"onBindViewHolder(): albumHashMap "+albumArrayList);
         if (albumArrayList!=null && !albumArrayList.isEmpty()) {
+            String albumName = albumArrayList.get(position).getAlbumName();
             LogUtil.d(TAG,"onBindViewHolder(): albumName="+albumArrayList.get(position).getAlbumName());
             LogUtil.d(TAG,"onBindViewHolder(): size="+albumArrayList.get(position).getAlbumArrayList().size());
             albumViewHolder.tvAlbumName.setText((CharSequence) albumArrayList.get(position).getAlbumName());
@@ -77,12 +81,35 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             LogUtil.d(TAG,"position="+albumArrayList.get(position));
             // TODO
             String loadImageStr = getImage(position);
-            if (!TextUtils.isEmpty(loadImageStr)) {
-                Glide.with(context)
-                        .asBitmap()
-                        .apply(new RequestOptions().transform(new CenterCrop(),new RoundedCorners(20)))
-                        .load(loadImageStr)
-                        .into(albumViewHolder.ivFirstImage);
+            LogUtil.d(TAG,"onBindViewHolder(): loadImageStr="+loadImageStr);
+            LogUtil.d(TAG,"onBindViewHolder(): isImage="+StringUtil.isImage(loadImageStr)+
+                    " StringUtil.isVideo()="+StringUtil.isVideo(loadImageStr));
+            if (StringUtil.isImage(loadImageStr)) {
+                if (!TextUtils.isEmpty(loadImageStr)) {
+                    Glide.with(context)
+                            .asBitmap()
+                            .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(20)))
+                            .load(loadImageStr)
+                            .into(albumViewHolder.ivFirstImage);
+                }
+            }
+            if (StringUtil.isVideo(loadImageStr)){
+                albumViewHolder.gsyVideoPlayer.setVisibility(View.INVISIBLE);
+                albumViewHolder.gsyVideoPlayer.setUp(loadImageStr, false, albumName);
+                //增加title
+                albumViewHolder.gsyVideoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
+                //设置返回键
+                albumViewHolder.gsyVideoPlayer.getBackButton().setVisibility(View.VISIBLE);
+                //是否可以滑动调整
+                albumViewHolder.gsyVideoPlayer.setIsTouchWiget(true);
+                //设置返回按键功能
+                albumViewHolder.gsyVideoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        albumViewHolder.gsyVideoPlayer.setVideoAllCallBack(null);
+                    }
+                });
+                albumViewHolder.gsyVideoPlayer.startPlayLogic();
             }
         }
     }
@@ -102,15 +129,27 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         return "";
     }
 
+    /**
+     * 当数据改变时，通知adapter改变
+     * @param albumBeans
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    public void setData(ArrayList<AlbumBean> albumBeans){
+        this.albumArrayList = albumBeans;
+        notifyDataSetChanged();
+    }
+
     private static class AlbumViewHolder extends RecyclerView.ViewHolder{
         private TextView tvAlbumName;
         private TextView tvAlbumImageNum;
         private ImageView ivFirstImage;
+        private StandardGSYVideoPlayer gsyVideoPlayer;
         public AlbumViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAlbumName = itemView.findViewById(R.id.tv_album_name);
             tvAlbumImageNum = itemView.findViewById(R.id.tv_album_image_num);
             ivFirstImage = itemView.findViewById(R.id.iv_item_album_image);
+            gsyVideoPlayer = itemView.findViewById(R.id.gsy_video);
         }
     }
 }

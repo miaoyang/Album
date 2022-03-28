@@ -99,5 +99,20 @@
     <!--loading-->
     <string name="tv_app_loading_text">努力加载中...</string>
 
+    <!--recommend-->
+    <string name="tv_recommend_puzzle_text">拼图</string>
+    <string name="tv_recommend_crop_text">裁剪</string>
+    <string name="tv_recommend_art_photo_text">艺术照片</string>
+    <string name="tv_recommend_video_making_text">视频制作</string>
+
+    <string name="sv_recommend_search_text">照片、人物、地点...</string>
+    <string name="iv_search_list_clear_res">清除搜索历史</string>
+    <string name="tv_search_item_res">搜索记录</string>
+
+    <string name="tv_item_recommend_introduce">在达州</string>
+    <string name="tv_item_recommend_time">2022年02月22日</string>
+
+    <!--album-->
+    <string name="tv_loading_refresh">数据加载中...</string>
 
 </resources>

@@ -9,6 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ym.album.event.Event;
+import com.ym.album.event.EventBusUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * Author:Yangmiao
  * Desc:
@@ -18,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBusUtil.register(this);
     }
 
     @Nullable
@@ -28,7 +35,18 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBusUtil.unregister(this);
+    }
+
     public abstract int getLayoutId();
 
     public abstract void initView();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Event event){
+
+    }
 }

@@ -24,4 +24,8 @@ public class TimeUtil {
         }
         return date;
     }
+    public static String strToStr(String inputStr,String pattern){
+        Date date = strToDate(inputStr,pattern);
+        return dateToStr(date,pattern);
+    }
 }

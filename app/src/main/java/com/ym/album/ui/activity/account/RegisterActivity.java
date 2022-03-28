@@ -93,7 +93,7 @@ public class RegisterActivity extends BaseActivity {
                                 ToastUtil.showShort(mContext,"你已注册过该电话号码！请登录");
                             });
                             ARouter.getInstance().build(PathConfig.Account.LOGIN)
-                                    .withString(Constant.Account.telephone,phoneNum)
+                                    .withString(Constant.Account.TELEPHONE,phoneNum)
                                     .navigation();
                             LogUtil.d(TAG,"ARouter: telephone "+phoneNum);
                         }
@@ -134,8 +134,8 @@ public class RegisterActivity extends BaseActivity {
                 });
 
                 ARouter.getInstance().build(PathConfig.Account.LOGIN)
-                        .withString(Constant.Account.telephone,phoneNum)
-                        .withString(Constant.Account.password,psd)
+                        .withString(Constant.Account.TELEPHONE,phoneNum)
+                        .withString(Constant.Account.PASSWORD,psd)
                         .navigation();
             }
         });

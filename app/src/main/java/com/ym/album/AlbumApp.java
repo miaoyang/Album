@@ -5,8 +5,17 @@ import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.weavey.loading.lib.LoadingLayout;
 import com.ym.album.app.config.ARouterConfig;
+import com.ym.album.app.config.AppConstant;
+import com.ym.album.app.config.PathConfig;
+import com.ym.album.event.Event;
+import com.ym.album.event.EventBusUtil;
+import com.ym.album.utils.ImageMediaUtil;
 import com.ym.common_util.utils.CrashHandlerUtil;
 import com.ym.common_util.utils.LogUtil;
+import com.ym.common_util.utils.ThreadPoolUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class AlbumApp extends Application {
     private static final String TAG = "AlbumApp";

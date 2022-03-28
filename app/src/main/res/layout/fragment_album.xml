@@ -27,5 +27,27 @@
 
         </LinearLayout>
     </ScrollView>
+    <ImageView
+        android:id="@+id/iv_loading_refresh"
+        android:src="@drawable/iv_loading_refresh"
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="@dimen/dp_70"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/tv_loading_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_loading_refresh"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dp_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_loading_refresh"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -86,4 +86,12 @@ dependencies {
     api 'com.alibaba:arouter-api:1.5.1'
     kapt 'com.alibaba:arouter-compiler:1.5.1'
 
+    implementation 'com.shuyu:GSYVideoPlayer:7.1.8'
+
+    // GSYVideoPlayer 完整版引入
+    //implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.1.9-release-jitpack'
+    //implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.9-release-jitpack'
+
+    //是否需要ExoPlayer模式
+    //implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2:v8.1.9-release-jitpack'
 }

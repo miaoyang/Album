@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.ym.album.AlbumApp;
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig;
 import com.ym.album.base.BaseActivity;
@@ -12,6 +14,8 @@ import com.ym.album.ui.fragment.AlbumFragment;
 import com.ym.album.ui.fragment.BlankFragment;
 import com.ym.album.ui.fragment.person.PersonalFragment;
 import com.ym.album.ui.fragment.SelectImageFragment;
+import com.ym.album.ui.fragment.recommend.RecommendFragment;
+import com.ym.common_util.utils.SpUtil;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -57,7 +61,7 @@ public class MainActivity extends BaseActivity {
 
         mFragmentsList = new ArrayList<>(4);
         mFragmentsList.add(SelectImageFragment.newInstance());
-        mFragmentsList.add(BlankFragment.newInstance("为您推荐"));
+        mFragmentsList.add(RecommendFragment.newInstance());
         mFragmentsList.add(AlbumFragment.newInstance());
         mFragmentsList.add(PersonalFragment.newInstance());
         Log.d(TAG," list "+mFragmentsList);

@@ -1,50 +1,51 @@
 package com.ym.album.ui.fragment;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.ym.album.AlbumApp;
 import com.ym.album.R;
+import com.ym.album.app.config.AppConstant;
+import com.ym.album.base.BaseFragment;
+import com.ym.album.event.Event;
 import com.ym.album.ui.adapter.AlbumRecyclerAdapter;
 import com.ym.album.ui.bean.AlbumBean;
-import com.ym.album.ui.bean.PerImageInfoBean;
+import com.ym.album.utils.ImageMediaUtil;
+import com.ym.common_util.utils.JsonUtil;
 import com.ym.common_util.utils.LogUtil;
+import com.ym.common_util.utils.SpUtil;
 import com.ym.common_util.utils.ThreadPoolUtil;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 
-public class AlbumFragment extends Fragment {
+public class AlbumFragment extends BaseFragment {
     private static final String TAG = "AlbumFragment";
-    /**
-     * 所有图片集合
-     */
-    private ArrayList<PerImageInfoBean> imageAllList= new ArrayList<>();
-    /**
-     * 相册集合
-     */
-    private ArrayList<AlbumBean> albumAllList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private AlbumRecyclerAdapter albumRecyclerAdapter;
+    private ImageView mIvLoadingRefresh;
+    private TextView mTvLoadingRefresh;
+    private View v;
+
+    ArrayList<AlbumBean> albumAllList;
 
     public AlbumFragment() {
 
@@ -66,135 +67,112 @@ public class AlbumFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_album, container, true);
+        this.v = view;
         recyclerView = view.findViewById(R.id.rv_album);
-        getAlbumList();
-        if (albumAllList != null && albumAllList.size()>0) {
-            albumRecyclerAdapter = new AlbumRecyclerAdapter(getContext(),albumAllList );
+        mIvLoadingRefresh = view.findViewById(R.id.iv_loading_refresh);
+        mTvLoadingRefresh = view.findViewById(R.id.tv_loading_refresh);
+
+        String albumJson = SpUtil.getInstance(getContext()).getString(AppConstant.ALBUM_LIST_KEY,"");
+        long lastLoadingTime = SpUtil.getInstance(getContext()).getLong(AppConstant.LAST_LOADING_IMAGE,0L);
+        LogUtil.d(TAG,"onCreateView(): lastLoadingTime="+lastLoadingTime+" albumJson="+albumJson);
+        if (!TextUtils.isEmpty(albumJson) && System.currentTimeMillis()-lastLoadingTime<AppConstant.LOADING_IMAGE_ONE_DAY){
+            albumAllList = new Gson().fromJson(albumJson,new TypeToken<ArrayList<AlbumBean>>(){}.getType());
+            setRecyclerView();
+        }else {
+            loadingRefreshAnim(true);
         }
-        recyclerView.setAdapter(albumRecyclerAdapter);
-
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-
-        recyclerView.scrollToPosition(0);
-        recyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_fall_down));
-        recyclerView.scheduleLayoutAnimation();
 
         return view;
     }
 
-    public void getAlbumList(){
-        String[] projections = new String[]{
-                MediaStore.Files.FileColumns._ID, MediaStore.MediaColumns.DATA,
-                MediaStore.MediaColumns.DISPLAY_NAME, MediaStore.MediaColumns.DATE_MODIFIED,
-                MediaStore.MediaColumns.MIME_TYPE, MediaStore.MediaColumns.WIDTH,
-                MediaStore.MediaColumns.HEIGHT, MediaStore.MediaColumns.SIZE
-        };
-//        Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        Uri contentUri = MediaStore.Files.getContentUri("external");
-        ContentResolver contentResolver = this.getContext().getContentResolver();
-        final String sortOrder = MediaStore.Files.FileColumns.DATE_MODIFIED + " DESC";
-        final String selection = "(" + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)" +
-                " AND " + MediaStore.MediaColumns.SIZE + ">0";
-        Cursor cursor = null;
-        try {
-            cursor = contentResolver.query(contentUri, projections, selection,
-                    new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)},
-                    sortOrder);
-        }catch (Exception e){
-            LogUtil.e(TAG,"getAlbumList(): "+e);
-            e.printStackTrace();
-        }
-        if (cursor != null){
-            while (cursor.moveToNext()){
-                @SuppressLint("Range")
-                String imagePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                @SuppressLint("Range")
-                String displayName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
-                imageAllList.add(new PerImageInfoBean(imagePath,displayName));
-
-                String dirPath = Objects.requireNonNull(new File(imagePath).getParentFile()).getAbsolutePath();
-                int flag = 0;
-                for(int i=0,len = albumAllList.size();i<len;i++){
-                    if (albumAllList.get(i).getDirPath().equals(dirPath)){
-                        flag = 1;
-                        albumAllList.get(i).addImage(new PerImageInfoBean(imagePath,displayName));
-                    }
-                }
-                // 创建相册
-                if (flag == 0){
-                    ArrayList<PerImageInfoBean> list = new ArrayList<>();
-                    list.add(new PerImageInfoBean(imagePath,displayName));
-                    String [] dirPathStr = dirPath.split("/");
-                    String albumName = dirPathStr[dirPathStr.length-1];
-                    albumAllList.add(new AlbumBean(albumName,dirPath,list));
-                }
-            }
-        }
-        LogUtil.d(TAG,"getAlbumList(): albumAllList, "+albumAllList);
-        LogUtil.d(TAG,"getAlbumList(): allImageList, "+imageAllList);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
     }
 
-    public HashMap<String,List<String>> getImagePathList(){
-        HashMap<String, List<String>> mAllAlbum = new HashMap<>();
-        String path="";
-        final Uri contentUri = MediaStore.Files.getContentUri("external");
-        final String sortOrder = MediaStore.Files.FileColumns.DATE_MODIFIED + " DESC";
-        final String selection = "(" + MediaStore.Files.FileColumns.MEDIA_TYPE + "=?)" + " AND " + MediaStore.MediaColumns.SIZE + ">0";
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtil.d(TAG,"onHiddenChanged(): hidden="+hidden);
 
-        ContentResolver contentResolver = getActivity().getContentResolver();
-        String[] projections = new String[]{
-                MediaStore.Files.FileColumns._ID, MediaStore.MediaColumns.DATA,
-                MediaStore.MediaColumns.DISPLAY_NAME, MediaStore.MediaColumns.DATE_MODIFIED,
-                MediaStore.MediaColumns.MIME_TYPE, MediaStore.MediaColumns.WIDTH,
-                MediaStore.MediaColumns.HEIGHT, MediaStore.MediaColumns.SIZE
-        };
+    }
 
-        Cursor cursor = contentResolver.query(contentUri, projections, selection,
-                new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)},
-                sortOrder);
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtil.d(TAG,"onPause(): album");
+        loadingRefreshAnim(false);
+    }
 
-        if (cursor != null && cursor.moveToFirst()) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.d(TAG,"onResume(): album");
+        loadingRefreshAnim(true);
+    }
 
-            int pathIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
-            int mimeTypeIndex = cursor.getColumnIndex(MediaStore.MediaColumns.MIME_TYPE);
-            int sizeIndex = cursor.getColumnIndex(MediaStore.MediaColumns.SIZE);
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_album;
+    }
 
-            do {
-                long size = cursor.getLong(sizeIndex);
-                // 图片大小不得小于 1 KB
-                if (size < 1024) {
-                    continue;
-                }
+    @Override
+    public void initView() {
 
-                String type = cursor.getString(mimeTypeIndex);
-                path = cursor.getString(pathIndex);
-                if (TextUtils.isEmpty(path) || TextUtils.isEmpty(type)) {
-                    continue;
-                }
+    }
 
-                File file = new File(path);
-                if (!file.exists() || !file.isFile()) {
-                    continue;
-                }
-
-                File parentFile = file.getParentFile();
-                if (parentFile == null) {
-                    continue;
-                }
-//                Log.d(TAG,"file="+file+" parentFile="+parentFile);
-                // 获取目录名作为专辑名称
-                String albumName = parentFile.getName();
-
-                List<String> data = new ArrayList<>();
-                data.add(path);
-                mAllAlbum.put(albumName,data);
-
-            } while (cursor.moveToNext());
-
-            cursor.close();
+    @Override
+    public void onMessageEvent(Event event){
+        if (event.getCode()==AppConstant.ALBUM_EVENT_1){
+            albumAllList = (ArrayList<AlbumBean>) event.getData();
+            LogUtil.d(TAG,"onMessageEvent(): "+event.getCode()+" albumAllList size="+albumAllList.size());
+            loadingRefreshAnim(false);
+            setRecyclerView();
         }
-        LogUtil.d(TAG,"AllAlbum path "+mAllAlbum);
-        return mAllAlbum;
+    }
+
+    /**
+     * 加载和结束动画
+     * @param isStart
+     */
+    public void loadingRefreshAnim(boolean isStart){
+        if (isStart){
+            if (albumAllList == null || albumAllList.size()<1) {
+                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_loading_refresh);
+                animation.setRepeatCount(Animation.INFINITE);
+                animation.setBackgroundColor(getResources().getColor(R.color.transparent));
+                animation.setInterpolator(new LinearInterpolator());
+                mIvLoadingRefresh.setVisibility(View.VISIBLE);
+                mTvLoadingRefresh.setVisibility(View.VISIBLE);
+                mIvLoadingRefresh.startAnimation(animation);
+                LogUtil.d(TAG,"loadingRefreshAnim(): start loading anim!");
+            }
+        }else {
+            if (albumAllList!=null && albumAllList.size()>0) {
+                mIvLoadingRefresh.setVisibility(View.GONE);
+                mTvLoadingRefresh.setVisibility(View.GONE);
+                mIvLoadingRefresh.clearAnimation();
+                LogUtil.d(TAG,"loadingRefreshAnim(): stop loading anim!");
+            }
+        }
+    }
+
+    public void setRecyclerView(){
+        if (albumAllList!=null && albumAllList.size()>0) {
+            albumRecyclerAdapter = new AlbumRecyclerAdapter(getContext(),albumAllList );
+            albumRecyclerAdapter.setData(albumAllList);
+
+            LogUtil.d(TAG,"onMessageEvent(): albumRecyclerAdapter="+albumRecyclerAdapter);
+            recyclerView.setAdapter(albumRecyclerAdapter);
+
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
+
+            recyclerView.scrollToPosition(0);
+            recyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_fall_down));
+            recyclerView.scheduleLayoutAnimation();
+        }else {
+            loadingRefreshAnim(true);
+        }
     }
 }

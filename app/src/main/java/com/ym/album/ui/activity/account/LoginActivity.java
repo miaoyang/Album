@@ -12,17 +12,25 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ym.album.AlbumApp;
+import com.ym.album.app.config.AppConstant;
 import com.ym.album.app.config.PathConfig;
 import com.ym.album.app.config.SPConfig;
 import com.ym.album.base.BaseMvpActivity;
+import com.ym.album.event.Event;
+import com.ym.album.event.EventBusUtil;
 import com.ym.album.room.AppDataBase;
 import com.ym.album.room.model.UserInfo;
 import com.ym.album.R;
+import com.ym.album.ui.activity.Constant;
+import com.ym.album.utils.ImageMediaUtil;
 import com.ym.common_util.utils.LogUtil;
 import com.ym.common_util.utils.SpUtil;
 import com.ym.common_util.utils.ThreadPoolUtil;
 import com.ym.common_util.utils.ToastUtil;
 import com.ym.common_util.utils.ValidatorUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.sql.Date;
 @Route(path = PathConfig.Account.LOGIN)
@@ -50,6 +58,13 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
         LogUtil.d(TAG,"onCreate");
         setContentView(R.layout.activity_login);
         mContext = this;
+        boolean isFirstLogin = SpUtil.getInstance(this).getBoolean(Constant.Account.IS_FIRST_LOGIN,false);
+        long lastLoginTime =SpUtil.getInstance(AlbumApp.getApp()).getLong(Constant.Account.AUTO_LOGIN_TIME,0L);
+        if(System.currentTimeMillis()-lastLoginTime<Constant.Account.AUTO_LOGIN_MAX_TIME && !isFirstLogin){
+            ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
+            EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS,"login success"));
+        }
+
         initView();
         initData();
         LogUtil.d(TAG,"register telephone="+telephone+" password="+password);
@@ -83,6 +98,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
 
         mPresenter = new AccountPresenter();
         mPresenter.attachView(this);
+
     }
     @Override
     public void initData(){
@@ -92,7 +108,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                 "864412543@qq.com",26,date);
         ThreadPoolUtil.diskExe(()->{
             AppDataBase.getInstance().userDao().insertUserInfo(userInfoTemp);
-            LogUtil.d(TAG,"insert data success!");
+            LogUtil.d(TAG,"initData(): insert data success!");
         });
 
         boolean isRememberPassword = SpUtil.getInstance(this).getBoolean(SPConfig.KEY_REMEMBER_PASSWORD,false);
@@ -126,7 +142,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                 if (mEtUserName != null && mEtPassword != null){
                     String userName = mEtUserName.getText().toString();
                     String password = mEtPassword.getText().toString();
-                    LogUtil.d(TAG,"userName="+userName+" password="+password);
+                    LogUtil.d(TAG,"initData(): userName="+userName+" password="+password);
                     // TODO 区分手机号、邮箱、普通账号
                     if (TextUtils.isEmpty(userName)){
                         ToastUtil.showShort(mContext,"输入用户名为空！");
@@ -155,40 +171,47 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                         UserInfo userInfoTel = AppDataBase.getInstance().userDao().selectByTelephone(userName);
                         if (userInfoName != null ){
                             if (userInfoName.getPassword().equals(password)){
-                                LogUtil.d(TAG,"phone login success! userName="+userName);
+                                LogUtil.d(TAG,"initData(): phone login success! userName="+userName);
                                 ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
                                 if (mCbRememberPassword.isChecked()){
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_USER_NAME,userName);
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,password);
                                     // 存在bug，多个账号切换问题
-                                    LogUtil.d(TAG,"phone save username and password in sp!");
+                                    LogUtil.d(TAG,"initData(): phone save username and password in sp!");
                                 }else {
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_USER_NAME,"");
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,"");
                                 }
+                                SpUtil.getInstance(mContext).putLong(Constant.Account.AUTO_LOGIN_TIME,System.currentTimeMillis());
+                                EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS,"login success"));
+                                LogUtil.d(TAG,"initData(): sendEvent login success");
                             }else {
                                 runOnUiThread(()->{
                                     mEtPassword.setText("");
                                     ToastUtil.showShort(AlbumApp.getApp(),"输入密码错误，请重新输入！");
                                 });
-                                LogUtil.d(TAG,"phone password is error userName="+userName);
+                                LogUtil.d(TAG,"initData(): phone password is error userName="+userName);
                             }
                         }else if (userInfoTel != null){
                             if (userInfoTel.getPassword().equals(password)){
-                                LogUtil.d(TAG,"tel login success! userName="+userName);
+                                LogUtil.d(TAG,"initData(): tel login success! userName="+userName);
                                 ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
                                 if (mCbRememberPassword.isChecked()){
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_USER_NAME,"");
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,"");
                                     // 存在bug，多个账号切换问题
-                                    LogUtil.d(TAG,"tel save username and password in sp!");
+                                    LogUtil.d(TAG,"initData(): tel save username and password in sp!");
                                 }
+                                // 记录登录时间
+                                SpUtil.getInstance(mContext).putLong(Constant.Account.AUTO_LOGIN_TIME,System.currentTimeMillis());
+                                SpUtil.getInstance(mContext).putBoolean(Constant.Account.IS_FIRST_LOGIN,true);
+                                EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS,"login success"));
                             }else {
                                 runOnUiThread(()->{
                                     mEtPassword.setText("");
                                     ToastUtil.showShort(AlbumApp.getApp(),"输入密码错误，请重新输入！");
                                 });
-                                LogUtil.d(TAG,"tel password is error userName="+userName);
+                                LogUtil.d(TAG,"initData(): tel password is error userName="+userName);
                             }
                         }else {
                             runOnUiThread(()->{
@@ -231,5 +254,24 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
     @Override
     public void onSuccess() {
 
+    }
+
+    @Override
+    public void onMessageEvent(Event event) {
+        super.onMessageEvent(event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onEventBus(Event event){
+        if (event.getCode()== AppConstant.LOGIN_SUCCESS){
+            String str = (String) event.getData();
+            LogUtil.d(TAG,"onEventBus(): str="+str);
+            ThreadPoolUtil.diskExe(new Runnable() {
+                @Override
+                public void run() {
+                    ImageMediaUtil.getAlbumList(mContext,getParent());
+                }
+            });
+        }
     }
 }

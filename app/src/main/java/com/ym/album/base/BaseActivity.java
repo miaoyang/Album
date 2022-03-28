@@ -10,8 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.ym.album.R;
+import com.ym.album.event.Event;
+import com.ym.album.event.EventBusUtil;
 import com.ym.album.utils.RequestPermissionsUtil;
 import com.ym.common_util.config.DebugConfig;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Author:Yangmiao
@@ -34,11 +39,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .statusBarDarkFont(true)
                 .fitsSystemWindows(false)
                 .init();
+        EventBusUtil.register(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBusUtil.unregister(this);
     }
 
     @Override
@@ -72,5 +79,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         return (T) super.findViewById(resId);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Event event){
+
+    }
 
 }
