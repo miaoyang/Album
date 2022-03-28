@@ -269,6 +269,12 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                     ImageMediaUtil.getAlbumList(mContext,getParent());
                 }
             });
+            ThreadPoolUtil.diskExe(new Runnable() {
+                @Override
+                public void run() {
+                    ImageMediaUtil.getImagePathList(mContext,getParent());
+                }
+            });
         }else if (event.getCode()==AppConstant.LOGIN_SUCCESS_NOT_LOADING_IMAGE){
             String str = (String) event.getData();
             LogUtil.d(TAG,"onMessageEvent(): str="+str);

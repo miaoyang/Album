@@ -11,12 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.ym.album.R;
 import com.ym.album.ui.bean.AlbumBean;
@@ -84,12 +89,28 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             LogUtil.d(TAG,"onBindViewHolder(): loadImageStr="+loadImageStr);
             LogUtil.d(TAG,"onBindViewHolder(): isImage="+StringUtil.isImage(loadImageStr)+
                     " StringUtil.isVideo()="+StringUtil.isVideo(loadImageStr));
+            // 添加监听器
+            final RequestListener mRequestListener = new RequestListener() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+                    LogUtil.d(TAG, "onBindViewHolder(): onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource);
+                    albumViewHolder.ivFirstImage.setImageResource(R.mipmap.ic_launcher);
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+                    Log.e(TAG,  "onBindViewHolder(): model:"+model+" isFirstResource: "+isFirstResource);
+                    return false;
+                }
+            };
             if (StringUtil.isImage(loadImageStr)) {
                 if (!TextUtils.isEmpty(loadImageStr)) {
                     Glide.with(context)
                             .asBitmap()
                             .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(20)))
                             .load(loadImageStr)
+                            .listener(mRequestListener)
                             .into(albumViewHolder.ivFirstImage);
                 }
             }
@@ -111,6 +132,7 @@ public class AlbumRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 });
                 albumViewHolder.gsyVideoPlayer.startPlayLogic();
             }
+
         }
     }
 

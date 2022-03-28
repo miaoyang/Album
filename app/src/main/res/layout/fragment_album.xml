@@ -30,7 +30,7 @@
     </ScrollView>
     <ImageView
         android:id="@+id/iv_loading_refresh"
-        android:src="@drawable/iv_loading_refresh"
+        android:src="@drawable/loading_refresh"
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         app:layout_constraintTop_toTopOf="parent"

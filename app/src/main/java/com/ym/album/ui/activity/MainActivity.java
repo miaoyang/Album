@@ -1,6 +1,8 @@
 package com.ym.album.ui.activity;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -35,6 +37,11 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> mFragmentsList;
     private HomeAdapter mHomeAdapter;
+
+    private FragmentManager fragmentManager;
+    private FragmentTransaction mTransaction;
+
+    private int fragmentNow = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +79,8 @@ public class MainActivity extends BaseActivity {
 
         mViewPager.registerOnPageChangeCallback(mPageChangeListener);
         mViewPager.setCurrentItem(0);
+
+        //changeFragment(fragmentNow);
     }
 
     @Override
@@ -97,6 +106,7 @@ public class MainActivity extends BaseActivity {
                     ((RadioButton)findViewById(R.id.rb_home_search)).setChecked(true);
                     break;
             }
+
         }
     };
 
@@ -112,5 +122,42 @@ public class MainActivity extends BaseActivity {
             }
         }
     };
+
+    /**
+     * fragment切换动画
+     * @param i
+     */
+    public void changeFragment(int i){
+        fragmentManager=getSupportFragmentManager();
+        mTransaction=fragmentManager.beginTransaction();
+        /**
+         * 判断动画的切换方向
+         */
+        if(fragmentNow>i){
+            mTransaction.setCustomAnimations(R.anim.fragment_from_left,R.anim.fragment_out_left);
+        }else if(fragmentNow<i){
+            mTransaction.setCustomAnimations(R.anim.fragment_from_left,R.anim.fragment_out_right);
+        }
+
+        switch (i){
+            case 0:
+                mTransaction.replace(R.id.rb_home_album,SelectImageFragment.newInstance());
+                fragmentNow=0;
+                break;
+            case 1:
+                mTransaction.replace(R.id.rb_home_recommend,RecommendFragment.newInstance());
+                fragmentNow=1;
+                break;
+            case 2:
+                mTransaction.replace(R.id.rb_home_relative,AlbumFragment.newInstance());
+                fragmentNow=2;
+                break;
+            case 3:
+                mTransaction.replace(R.id.rb_home_search,PersonalFragment.newInstance());
+                fragmentNow=3;
+                break;
+        }
+        mTransaction.commit();
+    }
 
 }

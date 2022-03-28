@@ -120,6 +120,9 @@ public class ImageMediaUtil {
             cursor.close();
         }
         LogUtil.d(TAG, "getImagePathList(): Image path " + imagePathList);
+        EventBusUtil.sendEvent(new Event(AppConstant.LOADING_ALL_IMAGE_EVENT,imagePathList));
+        SpUtil.getInstance(AlbumApp.getApp()).putLong(AppConstant.LAST_LOADING_ALL_IMAGE_TIME,System.currentTimeMillis());
+        SpUtil.getInstance(AlbumApp.getApp()).putString(AppConstant.LAST_LOADING_ALL_IMAGE,JsonUtil.serialize(imagePathList));
         return imagePathList;
     }
 
@@ -270,12 +273,13 @@ public class ImageMediaUtil {
             }
         }
         LogUtil.d(TAG, "getAlbumList(): allImageList<2, " + imageAllList);
+        // 事件通知
         EventBusUtil.sendEvent(new Event(AppConstant.ALBUM_EVENT_1,albumAllList));
-        String albumJson = JsonUtil.serialize(albumAllList);
-        String imageJson = JsonUtil.serialize(imageAllList);
-        SpUtil.getInstance(AlbumApp.getApp()).putString(AppConstant.ALBUM_LIST_KEY,albumJson);
-        SpUtil.getInstance(AlbumApp.getApp()).putString(AppConstant.IMAGE_LIST_KEY,imageJson);
-
+        EventBusUtil.sendEvent(new Event(AppConstant.IMAGE_EVENT_2,imageAllList));
+        // 保存加载到图像到本地
+        SpUtil.getInstance(AlbumApp.getApp()).putString(AppConstant.ALBUM_LIST_KEY,JsonUtil.serialize(albumAllList));
+        SpUtil.getInstance(AlbumApp.getApp()).putString(AppConstant.IMAGE_LIST_KEY,JsonUtil.serialize(imageAllList));
+        // 上次加载图像到时间
         SpUtil.getInstance(AlbumApp.getApp()).putLong(AppConstant.LAST_LOADING_IMAGE,System.currentTimeMillis());
 
     }
