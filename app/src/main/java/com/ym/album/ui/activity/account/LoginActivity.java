@@ -58,11 +58,12 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
         LogUtil.d(TAG,"onCreate");
         setContentView(R.layout.activity_login);
         mContext = this;
+        // 自动登录
         boolean isFirstLogin = SpUtil.getInstance(this).getBoolean(Constant.Account.IS_FIRST_LOGIN,false);
         long lastLoginTime =SpUtil.getInstance(AlbumApp.getApp()).getLong(Constant.Account.AUTO_LOGIN_TIME,0L);
         if(System.currentTimeMillis()-lastLoginTime<Constant.Account.AUTO_LOGIN_MAX_TIME && !isFirstLogin){
             ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation();
-            EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS,"login success"));
+            EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS_NOT_LOADING_IMAGE,"login success, not loading image!"));
         }
 
         initView();
@@ -183,7 +184,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                                     SpUtil.getInstance(mContext).putString(SPConfig.KEY_PASSWORD,"");
                                 }
                                 SpUtil.getInstance(mContext).putLong(Constant.Account.AUTO_LOGIN_TIME,System.currentTimeMillis());
-                                EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS,"login success"));
+                                EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS_LOADING_IMAGE,"login success"));
                                 LogUtil.d(TAG,"initData(): sendEvent login success");
                             }else {
                                 runOnUiThread(()->{
@@ -205,7 +206,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
                                 // 记录登录时间
                                 SpUtil.getInstance(mContext).putLong(Constant.Account.AUTO_LOGIN_TIME,System.currentTimeMillis());
                                 SpUtil.getInstance(mContext).putBoolean(Constant.Account.IS_FIRST_LOGIN,true);
-                                EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS,"login success"));
+                                EventBusUtil.sendStickyEvent(new Event<String>(AppConstant.LOGIN_SUCCESS_LOADING_IMAGE,"login success"));
                             }else {
                                 runOnUiThread(()->{
                                     mEtPassword.setText("");
@@ -257,21 +258,20 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
     }
 
     @Override
-    public void onMessageEvent(Event event) {
-        super.onMessageEvent(event);
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onEventBus(Event event){
-        if (event.getCode()== AppConstant.LOGIN_SUCCESS){
+    public void onMessageEvent(Event event){
+        if (event.getCode()== AppConstant.LOGIN_SUCCESS_LOADING_IMAGE){
             String str = (String) event.getData();
-            LogUtil.d(TAG,"onEventBus(): str="+str);
+            LogUtil.d(TAG,"onMessageEvent(): str="+str);
             ThreadPoolUtil.diskExe(new Runnable() {
                 @Override
                 public void run() {
                     ImageMediaUtil.getAlbumList(mContext,getParent());
                 }
             });
+        }else if (event.getCode()==AppConstant.LOGIN_SUCCESS_NOT_LOADING_IMAGE){
+            String str = (String) event.getData();
+            LogUtil.d(TAG,"onMessageEvent(): str="+str);
         }
     }
 }
