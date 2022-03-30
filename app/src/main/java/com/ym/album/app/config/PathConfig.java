@@ -30,5 +30,6 @@ public interface PathConfig {
         // fragment
         String PERSON_HEAD_IMAGE = PERSON + "/person_head_image";
         String PERSON_INFO_FRAGMENT = PERSON + "/person_info_fragment";
+        String PERSON_NAME_EDIT = PERSON + "/person_name_edit";
     }
 }

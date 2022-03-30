@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ym.album.R
@@ -23,6 +24,9 @@ class PersonalInfoFragment : BaseFragment() {
     private var mIvPersonInfoImage: ImageView?=null
     private var mIvPersonInfoHeadBack: ImageView?=null
 
+    private var mTvUserNameEdit:TextView?=null
+    private var mIvUserNameHeadBack:ImageView?=null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         LogUtil.d(TAG,"onAttach():")
@@ -37,6 +41,10 @@ class PersonalInfoFragment : BaseFragment() {
         mIvHeadBackup = view.findViewById(R.id.iv_person_info_backup)
         mIvPersonInfoImage = view.findViewById(R.id.iv_person_info_head_image)
         mIvPersonInfoHeadBack = view.findViewById(R.id.iv_person_info_head_backup)
+        mTvUserNameEdit = view.findViewById(R.id.tv_person_info_username_change)
+        mIvUserNameHeadBack = view.findViewById(R.id.iv_person_info_username_backup)
+
+
         LogUtil.d(TAG,"onCreateView():")
         initView()
         return view
@@ -54,7 +62,7 @@ class PersonalInfoFragment : BaseFragment() {
     override fun initView() {
         mIvHeadBackup?.setOnClickListener {
             LogUtil.d(TAG,"initView(): ARouter before")
-//            ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation()
+            ARouter.getInstance().build(PathConfig.HOME.MAIN_ACTIVITY).navigation()
 //            val fragment = ARouter.getInstance().build(PathConfig.Person.PERSON_HOME).navigation() as PersonalHomeFragment
 //            switchFragment(R.id.fragment_vp,fragment)
             LogUtil.d(TAG,"initView(): ARouter after")
@@ -69,6 +77,19 @@ class PersonalInfoFragment : BaseFragment() {
             switchFragment(R.id.person_fragment,fragment)
             LogUtil.d(TAG,"initView(): path=${PathConfig.Person.PERSON_HEAD_IMAGE}")
         }
+
+        mTvUserNameEdit?.setOnClickListener {
+            val fragment:EditNameFragment = ARouter.getInstance().build(PathConfig.Person.PERSON_NAME_EDIT).navigation() as EditNameFragment
+            switchFragment(R.id.person_fragment,fragment)
+            LogUtil.d(TAG,"initView(): path=${PathConfig.Person.PERSON_NAME_EDIT}")
+        }
+
+        mIvUserNameHeadBack?.setOnClickListener {
+            val fragment:EditNameFragment = ARouter.getInstance().build(PathConfig.Person.PERSON_NAME_EDIT).navigation() as EditNameFragment
+            switchFragment(R.id.person_fragment,fragment)
+            LogUtil.d(TAG,"initView(): path=${PathConfig.Person.PERSON_NAME_EDIT}")
+        }
+
     }
 
 

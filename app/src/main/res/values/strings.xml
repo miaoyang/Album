@@ -102,6 +102,10 @@
     <string name="tv_dialog_save_photo">保存图像</string>
     <string name="tv_dialog_exit">取消</string>
 
+    <string name="tv_set_name_exit">取消</string>
+    <string name="tv_set_name_text">设置名字</string>
+    <string name="bt_set_name_finish">完成</string>
+
     <!--loading-->
     <string name="tv_app_loading_text">努力加载中...</string>
 

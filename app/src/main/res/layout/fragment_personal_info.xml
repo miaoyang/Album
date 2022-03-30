@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_60">
+        android:layout_marginTop="@dimen/dp_40">
 
         <RelativeLayout
             android:id="@+id/person_info_top_layout"
@@ -98,10 +98,10 @@
                 android:id="@+id/tv_person_info_username_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/iv_person_info_username_backup"
                 android:text="@string/tv_person_info_username_temp"
-                android:textSize="@dimen/sp_18"
                 android:textColor="@color/black"
-                android:layout_toStartOf="@+id/iv_person_info_username_backup"/>
+                android:textSize="@dimen/sp_18" />
 
             <ImageView
                 android:id="@+id/iv_person_info_username_backup"
