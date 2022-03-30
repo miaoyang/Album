@@ -23,4 +23,10 @@ public class AppConstant {
     public static final int ALBUM_EVENT_1 = 1;
     public static final int IMAGE_EVENT_2 = 2;
 
+    public interface Event{
+        int PERSON_DIALOG_EXIT = 5;
+        int PERSON_DIALOG_TAKE_PHOTO = 6;
+        int PERSON_DIALOG_OPEN_GALLERY = 7;
+    }
+
 }

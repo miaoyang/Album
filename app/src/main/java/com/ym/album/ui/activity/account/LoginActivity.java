@@ -266,13 +266,13 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
             ThreadPoolUtil.diskExe(new Runnable() {
                 @Override
                 public void run() {
-                    ImageMediaUtil.getAlbumList(mContext,getParent());
+                    ImageMediaUtil.getAlbumList(mContext);
                 }
             });
             ThreadPoolUtil.diskExe(new Runnable() {
                 @Override
                 public void run() {
-                    ImageMediaUtil.getImagePathList(mContext,getParent());
+                    ImageMediaUtil.getImagePathList(mContext);
                 }
             });
         }else if (event.getCode()==AppConstant.LOGIN_SUCCESS_NOT_LOADING_IMAGE){

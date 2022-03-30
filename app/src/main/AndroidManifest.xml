@@ -28,6 +28,7 @@
                     tools:ignore="BatteryLife" />
                 <action android:name="android.hardware.action.NEW_VIDEO"
                     tools:ignore="BatteryLife" />
+                <action android:name="android.intent.action.MEDIA_SCANNER_SCAN_FILE"/>
             </intent-filter>
         </receiver>
 

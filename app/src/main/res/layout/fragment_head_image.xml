@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.person.HeadImageFragment"
+    android:orientation="vertical"
+    android:background="@color/black">
+
+    <RelativeLayout
+        android:id="@+id/top_head_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp_30">
+
+        <ImageView
+            android:id="@+id/iv_head_image_backup"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_20"
+            android:src="@drawable/forget_password_backup"
+            android:background="@color/white"/>
+        <TextView
+            android:id="@+id/tv_head_image_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_head_image_personal_info"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+        <ImageView
+            android:id="@+id/iv_head_image_more"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:src="@drawable/iv_more_info"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:background="@color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/middle_head_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_head_image_layout">
+        <ImageView
+            android:id="@+id/iv_head_image_personal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login_image"/>
+    </RelativeLayout>
+
+    <include layout="@layout/person_dialog_layout"/>
+
+
+</RelativeLayout>

@@ -1,25 +1,28 @@
 package com.ym.album.ui.activity;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.ym.album.AlbumApp;
 import com.ym.album.R;
 import com.ym.album.app.config.PathConfig;
 import com.ym.album.base.BaseActivity;
 import com.ym.album.ui.adapter.HomeAdapter;
 import com.ym.album.ui.fragment.AlbumFragment;
-import com.ym.album.ui.fragment.BlankFragment;
-import com.ym.album.ui.fragment.person.PersonalFragment;
+import com.ym.album.ui.fragment.person.PersonalHomeFragment;
 import com.ym.album.ui.fragment.SelectImageFragment;
 import com.ym.album.ui.fragment.recommend.RecommendFragment;
-import com.ym.common_util.utils.SpUtil;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RadioButton;
@@ -31,6 +34,8 @@ import java.util.List;
 @Route(path = PathConfig.HOME.MAIN_ACTIVITY)
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+
+
 
     private ViewPager2 mViewPager;
     private RadioGroup mRadioGroup;
@@ -48,6 +53,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
+        checkPermission(this,this);
     }
 
     @Override
@@ -70,7 +76,7 @@ public class MainActivity extends BaseActivity {
         mFragmentsList.add(SelectImageFragment.newInstance());
         mFragmentsList.add(RecommendFragment.newInstance());
         mFragmentsList.add(AlbumFragment.newInstance());
-        mFragmentsList.add(PersonalFragment.newInstance());
+        mFragmentsList.add(PersonalHomeFragment.newInstance());
         Log.d(TAG," list "+mFragmentsList);
 
         mHomeAdapter = new HomeAdapter(this, mFragmentsList);
@@ -124,7 +130,7 @@ public class MainActivity extends BaseActivity {
     };
 
     /**
-     * fragment切换动画
+     * fragment切换动画 // TODO
      * @param i
      */
     public void changeFragment(int i){
@@ -153,11 +159,46 @@ public class MainActivity extends BaseActivity {
                 fragmentNow=2;
                 break;
             case 3:
-                mTransaction.replace(R.id.rb_home_search,PersonalFragment.newInstance());
+                mTransaction.replace(R.id.rb_home_search, PersonalHomeFragment.newInstance());
                 fragmentNow=3;
                 break;
         }
         mTransaction.commit();
+    }
+
+    /**
+     * 申请权限
+     * @param context
+     * @param activity
+     * @return
+     */
+    public static boolean checkPermission(Context context, Activity activity) {
+        String[] permissions = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_MEDIA_LOCATION
+        };
+        boolean isCheckPermissionTrue = true;
+        for (String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
+                isCheckPermissionTrue = false;
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
+                    new AlertDialog.Builder(context)
+                            .setTitle("申请权限")
+                            .setMessage("您将申请以下权限" + permission)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    ActivityCompat.requestPermissions(activity, permissions, 0x01);
+                                }
+                            }).show();
+                } else {
+                    ActivityCompat.requestPermissions(activity, permissions, 0x01);
+                }
+                break;
+            }
+        }
+        return isCheckPermissionTrue;
     }
 
 }

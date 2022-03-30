@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ym.album.ui.widget.PersonHeadMoreView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:id="@+id/person_dialog_layout"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_dialog_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center"
+        android:text="@string/tv_dialog_take_photo"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/black"/>
+    <TextView
+        android:id="@+id/tv_dialog_from_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center"
+        android:text="@string/tv_dialog_get_photo_from_album"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"/>
+    <TextView
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/black"/>
+    <TextView
+        android:id="@+id/tv_dialog_save_photo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center"
+        android:text="@string/tv_dialog_save_photo"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"/>
+    <TextView
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/black"/>
+    <TextView
+        android:id="@+id/tv_dialog_exit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center"
+        android:text="@string/tv_dialog_exit"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"/>
+
+
+</com.ym.album.ui.widget.PersonHeadMoreView>

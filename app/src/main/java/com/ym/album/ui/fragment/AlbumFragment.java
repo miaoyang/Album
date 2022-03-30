@@ -82,7 +82,7 @@ public class AlbumFragment extends BaseFragment {
         }else {
             loadingRefreshAnim(true);
             ThreadPoolUtil.diskExe(()->{
-                ImageMediaUtil.getAlbumList(getContext(),getActivity());
+                ImageMediaUtil.getAlbumList(getContext());
             });
         }
 

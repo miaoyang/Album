@@ -19,11 +19,16 @@ public interface PathConfig {
     interface Image{
         String IMAGE = "/image";
         String IMAGE_CLICK = IMAGE + "/click";
+        // fragment
+        String SELECT_IMAGE_FRAGMENT = IMAGE+"/select_image_fragment";
     }
 
     interface Person{
         String PERSON = "/person";
         String PERSON_HOME = PERSON + "/home";
-        String PERSON_INFO = PERSON + "/person_info";
+        String PERSON_INFO_ACTIVITY = PERSON + "/person_info_activity";
+        // fragment
+        String PERSON_HEAD_IMAGE = PERSON + "/person_head_image";
+        String PERSON_INFO_FRAGMENT = PERSON + "/person_info_fragment";
     }
 }

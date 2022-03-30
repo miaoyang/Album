@@ -3,4 +3,5 @@
     <external-path
         name="camera_photos"
         path="crop_photo" />
+    <root-path path="" name="camera_photos" />
 </paths>

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.ym.album.event.Event;
 import com.ym.album.event.EventBusUtil;
@@ -48,5 +50,33 @@ public abstract class BaseFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(Event event){
 
+    }
+
+    /**
+     * 页面跳转，从当前页面跳转到指定fragment
+     * @param nowLayoutId
+     * @param f
+     */
+    public void switchFragment(int nowLayoutId,Fragment f) {
+        if (getActivity() != null) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();//管理对象
+            FragmentTransaction trans = fragmentManager.beginTransaction();//切换碎片
+            trans.replace(nowLayoutId, f);
+            trans.commit();
+        }
+    }
+
+    /**
+     * 添加fragment
+     * @param nowLayoutId
+     * @param f
+     */
+    public void addFragment(int nowLayoutId,Fragment f){
+        if (getActivity() != null) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();//管理对象
+            FragmentTransaction trans = fragmentManager.beginTransaction();//切换碎片
+            trans.add(nowLayoutId, f);
+            trans.commit();
+        }
     }
 }

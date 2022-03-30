@@ -96,6 +96,12 @@
     <string name="tv_person_info_my_local_address">我的地址</string>
     <string name="title_activity_person_info">PersonInfoActivity</string>
 
+    <string name="tv_head_image_personal_info">个人头像</string>
+    <string name="tv_dialog_take_photo">拍照</string>
+    <string name="tv_dialog_get_photo_from_album">从手机相册选择</string>
+    <string name="tv_dialog_save_photo">保存图像</string>
+    <string name="tv_dialog_exit">取消</string>
+
     <!--loading-->
     <string name="tv_app_loading_text">努力加载中...</string>
 

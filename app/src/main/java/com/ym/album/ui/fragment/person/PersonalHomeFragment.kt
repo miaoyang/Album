@@ -13,14 +13,14 @@ import com.ym.album.app.config.PathConfig
 import com.ym.common_util.utils.LogUtil
 
 @Route(path = PathConfig.Person.PERSON_HOME)
-class PersonalFragment : Fragment() {
+class PersonalHomeFragment : Fragment() {
     var personQrCode:ImageView?=null
 
     companion object{
         private const val TAG = "PersonalFragment"
         @JvmStatic
-        fun newInstance(): PersonalFragment? {
-            return PersonalFragment()
+        fun newInstance(): PersonalHomeFragment? {
+            return PersonalHomeFragment()
         }
     }
 
@@ -39,7 +39,7 @@ class PersonalFragment : Fragment() {
 
         personQrCode?.setOnClickListener {
             LogUtil.d(TAG,"onCreateView(): ARouter before")
-            ARouter.getInstance().build(PathConfig.Person.PERSON_INFO).navigation()
+            ARouter.getInstance().build(PathConfig.Person.PERSON_INFO_ACTIVITY).navigation()
             LogUtil.d(TAG,"onCreateView(): ARouter")
         }
         return view

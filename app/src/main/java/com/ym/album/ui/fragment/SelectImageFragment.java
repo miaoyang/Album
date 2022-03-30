@@ -16,12 +16,15 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.ym.album.R;
 import com.ym.album.app.config.AppConstant;
+import com.ym.album.app.config.PathConfig;
 import com.ym.album.base.BaseFragment;
 import com.ym.album.event.Event;
+import com.ym.album.event.EventBusUtil;
 import com.ym.album.ui.activity.Constant;
 import com.ym.album.ui.adapter.ImageRecyclerAdapter;
 import com.ym.album.ui.bean.AlbumBean;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+@Route(path = PathConfig.Image.SELECT_IMAGE_FRAGMENT)
 public class SelectImageFragment extends BaseFragment {
     private static final String TAG = "SelectImageFragment";
     private RecyclerView imageRecyclerView;
@@ -80,11 +83,11 @@ public class SelectImageFragment extends BaseFragment {
             } else {
                 loadingRefreshAnim(true);
                 ThreadPoolUtil.diskExe(() -> {
-                    ImageMediaUtil.getImagePathList(requireContext(), getActivity());
+                    ImageMediaUtil.getImagePathList(requireContext());
                 });
             }
         }else {
-            allImageList = ImageMediaUtil.getImagePathList(requireContext(), getActivity());
+            allImageList = ImageMediaUtil.getImagePathList(requireContext());
             setImageRecyclerView();
         }
         return view;
@@ -119,6 +122,12 @@ public class SelectImageFragment extends BaseFragment {
         super.onResume();
         loadingRefreshAnim(true);
         LogUtil.d(TAG,"onResume()");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtil.d(TAG,"onDestroy()");
     }
 
     @Override

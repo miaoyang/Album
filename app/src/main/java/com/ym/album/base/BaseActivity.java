@@ -6,6 +6,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.gyf.immersionbar.ImmersionBar;
@@ -28,7 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        initView();
+//        initView();
+//        initData();
         // app config
         initConfig();
         // ARouter
@@ -82,6 +86,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(Event event){
 
+    }
+
+    /**
+     * 页面跳转，从当前页面跳转到指定fragment
+     * @param nowLayoutId
+     * @param f
+     */
+    public void switchFragment(int nowLayoutId,Fragment f) {
+        FragmentManager fragmentManager = getSupportFragmentManager();//管理对象
+        FragmentTransaction trans = fragmentManager.beginTransaction();//切换碎片
+        trans.replace(nowLayoutId, f);
+        trans.commit();
+    }
+
+    public void addFragment(int nowLayoutId,Fragment f){
+        FragmentManager fragmentManager = getSupportFragmentManager();//管理对象
+        FragmentTransaction trans = fragmentManager.beginTransaction();//切换碎片
+        trans.add(nowLayoutId, f);
+        trans.commit();
     }
 
 }

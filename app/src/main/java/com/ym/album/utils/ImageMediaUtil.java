@@ -61,7 +61,7 @@ public class ImageMediaUtil {
     private volatile static ArrayList<AlbumBean> albumAllList = new ArrayList<>();
 
 
-    public static List<String> getImagePathList(@NonNull Context mContext, Activity activity) {
+    public static List<String> getImagePathList(@NonNull Context mContext) {
         List<String> imagePathList = new ArrayList<>();
         String path = "";
         final Uri contentUri = MediaStore.Files.getContentUri("external");
@@ -78,11 +78,13 @@ public class ImageMediaUtil {
 
         Cursor cursor = null;
 
-        if (checkPermission(mContext, activity)) {
+       try {
             cursor = contentResolver.query(contentUri, projections, selection,
                     new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)},
                     sortOrder);
-        }
+       }catch (Exception e){
+           LogUtil.d(TAG,"getImagePathList(): error ",e);
+       }
         if (cursor != null && cursor.moveToFirst()) {
 
             int pathIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
@@ -126,40 +128,13 @@ public class ImageMediaUtil {
         return imagePathList;
     }
 
-    public static boolean checkPermission(Context context, Activity activity) {
-        String[] permissions = new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_MEDIA_LOCATION
-        };
-        boolean isCheckPermissionTrue = true;
-        for (String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
-                isCheckPermissionTrue = false;
-                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
-                    new AlertDialog.Builder(context)
-                            .setTitle("申请权限")
-                            .setMessage("您将申请以下权限" + permission)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    ActivityCompat.requestPermissions(activity, permissions, 0x01);
-                                }
-                            }).show();
-                } else {
-                    ActivityCompat.requestPermissions(activity, permissions, 0x01);
-                }
-                break;
-            }
-        }
-        return isCheckPermissionTrue;
-    }
+
 
     /**
      * 获取设备到所有图片和相册
      * @param context
      */
-    public static void getAlbumList(Context context,Activity activity) {
+    public static void getAlbumList(Context context) {
 //        String[] projections = new String[]{
 //                MediaStore.Files.FileColumns._ID, MediaStore.MediaColumns.DATA,
 //                MediaStore.MediaColumns.DISPLAY_NAME,MediaStore.Images.Media.TITLE,
@@ -196,17 +171,16 @@ public class ImageMediaUtil {
         ExifInterface exif =null;
 
         try {
-            if (checkPermission(context, activity)) {
-                try {
+            try {
 //                    cursor = contentResolver.query(contentUri, projections, selection,
 //                            new String[]{String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)},
 //                            sortOrder);
-                    cursor = contentResolver.query(contentUri, projections, null,
-                            null, sortOrder);
-                } catch (Exception e) {
-                    LogUtil.e(TAG, "getAlbumList(): cursor ", e);
-                }
+                cursor = contentResolver.query(contentUri, projections, null,
+                        null, sortOrder);
+            } catch (Exception e) {
+                LogUtil.e(TAG, "getAlbumList(): cursor ", e);
             }
+
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     // 图像路径
