@@ -87,7 +87,7 @@ class CropActivity : BaseActivity(), View.OnClickListener {
                                         CODE_CAMERA_REQUEST
                                     )
                                 }else{
-                                    Toast.makeText(this@CropActivity,"Device didn't have SD Card!",Toast.LENGTH_SHORT)
+                                    Toast.makeText(this@CropActivity,"Device didn't have SD Card!",Toast.LENGTH_SHORT).show()
                                     Log.e(TAG,"Device didn't have SD Card!")
                                 }
                             }
@@ -95,7 +95,7 @@ class CropActivity : BaseActivity(), View.OnClickListener {
 
                         override fun denied() {
                             Toast.makeText(this@CropActivity,
-                                "Part of the permissions failed to obtain, and normal functions were affected ",Toast.LENGTH_SHORT)
+                                "Part of the permissions failed to obtain, and normal functions were affected ",Toast.LENGTH_SHORT).show()
                             Log.e(TAG,"Permission granted fail!")
                         }
 
@@ -111,7 +111,7 @@ class CropActivity : BaseActivity(), View.OnClickListener {
 
                         override fun denied() {
                             Toast.makeText(this@CropActivity,
-                                "Part of the permissions failed to obtain, and normal functions were affected",Toast.LENGTH_SHORT)
+                                "Part of the permissions failed to obtain, and normal functions were affected",Toast.LENGTH_SHORT).show()
                         }
 
                     })
@@ -174,14 +174,11 @@ class CropActivity : BaseActivity(), View.OnClickListener {
 
     private fun getImageUri(name:String): Uri? {
         val file:File = CommonUtil.createFile(this,name)
-        if (file != null){
-            takePath = file.absolutePath
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                return FileProvider.getUriForFile(this, FILE_PROVIDER,file)
-            }else{
-                return Uri.fromFile(file)
-            }
+        takePath = file.absolutePath
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+             FileProvider.getUriForFile(this, FILE_PROVIDER,file)
+        }else{
+             Uri.fromFile(file)
         }
-        return Uri.EMPTY
     }
 }

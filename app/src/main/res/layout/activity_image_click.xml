@@ -66,19 +66,17 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/image_click_middle_layout"
+    <ImageView
+        android:id="@+id/iv_click_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.ym.album.ui.widget.CustomViewPager
+        android:id="@+id/cvp_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/click_image_top_layout"
-        android:layout_above="@+id/click_image_bottom_layout">
-
-        <ImageView
-            android:id="@+id/iv_click_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+        android:layout_above="@+id/click_image_bottom_layout"/>
 
     <RelativeLayout
         android:id="@+id/click_image_bottom_layout"
@@ -105,6 +103,7 @@
 
                 <ImageView
                     android:id="@+id/iv_image_send"
+                    android:scaleType="centerInside"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     android:src="@drawable/iv_image_send" />
@@ -127,6 +126,7 @@
 
                 <ImageView
                     android:id="@+id/iv_image_edit"
+                    android:scaleType="centerInside"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     android:src="@drawable/iv_image_edit" />
@@ -149,6 +149,7 @@
 
                 <ImageView
                     android:id="@+id/iv_image_collect"
+                    android:scaleType="centerInside"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     android:src="@drawable/iv_image_collect" />
@@ -171,6 +172,7 @@
 
                 <ImageView
                     android:id="@+id/iv_image_delete"
+                    android:scaleType="centerInside"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     android:src="@drawable/iv_image_delete" />
@@ -193,6 +195,7 @@
 
                 <ImageView
                     android:id="@+id/iv_image_more"
+                    android:scaleType="centerInside"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
                     android:src="@drawable/iv_image_more" />

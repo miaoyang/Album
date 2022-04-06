@@ -77,6 +77,22 @@
     <string name="tv_image_delete">删除</string>
     <string name="tv_image_more">更多</string>
 
+    <string name="select_image_limit">最多选择%1$d张图片</string>
+    <string name="ip_all_images">所有图片</string>
+    <string name="tv_select_top_image_text">图片</string>
+    <string name="bt_select_finish">完成(0/3)</string>
+    <string name="tv_select_preview">预览(3)</string>
+    <string name="bt_select_complete">完成(%1$d/%2$d)</string>
+    <string name="bt_select_complete_default">完成</string>
+    <!--删除-->
+    <string name="tv_show_image_delete_text">删除</string>
+    <string name="tv_show_image_tips_text">确定从当前相册中删除这1项内容？</string>
+    <string name="bt_show_image_quit">取消</string>
+    <string name="bt_show_image_delete">删除</string>
+    <!--分享-->
+    <string name="tv_share_text">分享到...</string>
+    <string name="tv_popup_window_close">取消</string>
+
     <!--personal-->
     <string name="tv_person_username">yangmiao</string>
     <string name="tv_person_sign">好好拥抱生活，过好自己的人生</string>

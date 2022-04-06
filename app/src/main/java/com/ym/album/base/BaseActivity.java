@@ -41,7 +41,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         ImmersionBar.with(this)
                 .statusBarColor(R.color.transparent)
                 .statusBarDarkFont(true)
-                .fitsSystemWindows(false)
+                .fitsSystemWindows(true)    // UI布局在状态栏下方
+                .fullScreen(true)           // 有导航栏情况下全屏显示
                 .init();
         EventBusUtil.register(this);
     }

@@ -27,6 +27,13 @@ public class AppConstant {
         int PERSON_DIALOG_EXIT = 5;
         int PERSON_DIALOG_TAKE_PHOTO = 6;
         int PERSON_DIALOG_OPEN_GALLERY = 7;
+
+        int LOAD_ALL_IMAGE_DATA = 8;
+    }
+
+    public interface UI{
+        String DATA_IMAGE_ITEM_LIST = "image_item_list";
+        String CLICK_IMAGE_ITEM = "click_item_image";
     }
 
 }

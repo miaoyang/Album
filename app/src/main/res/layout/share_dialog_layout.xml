@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_radius">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_20"
+        android:text="@string/tv_share_text"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <GridView
+                android:id="@+id/popup_window_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:scrollbars="none"/>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:alpha="0.3"
+        android:background="#666"/>
+    <TextView
+        android:id="@+id/tv_popup_window_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_popup_window_close"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_18"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

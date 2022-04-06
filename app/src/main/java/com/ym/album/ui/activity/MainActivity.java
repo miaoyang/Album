@@ -35,8 +35,6 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-
-
     private ViewPager2 mViewPager;
     private RadioGroup mRadioGroup;
 

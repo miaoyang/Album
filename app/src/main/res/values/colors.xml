@@ -38,4 +38,10 @@
 
     <color name="colorGray">#f6f5ec</color>
 
+    <color name="mask_background">#88000000</color>
+    <!--选择back回退-->
+    <color name="ic_back_press">#323336</color>
+
+    <color name="ip_color_accent">#1AAD19</color>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.ym.album.ui.activity.account;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -23,6 +26,7 @@ import com.ym.album.room.model.UserInfo;
 import com.ym.album.R;
 import com.ym.album.ui.activity.Constant;
 import com.ym.album.utils.ImageMediaUtil;
+import com.ym.album.utils.LoadImageData;
 import com.ym.common_util.utils.LogUtil;
 import com.ym.common_util.utils.SpUtil;
 import com.ym.common_util.utils.ThreadPoolUtil;
@@ -36,6 +40,7 @@ import java.sql.Date;
 @Route(path = PathConfig.Account.LOGIN)
 public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements AccountContract.View {
     private static final String TAG = "LoginActivity";
+    private Activity activity;
 
     // register parameters
     @Autowired(name = "telephone")
@@ -55,6 +60,7 @@ public class LoginActivity extends BaseMvpActivity<AccountPresenter> implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         LogUtil.d(TAG,"onCreate");
         setContentView(R.layout.activity_login);
         mContext = this;

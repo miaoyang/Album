@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/dp_6"
@@ -9,6 +10,31 @@
         android:id="@+id/iv_item_image"
         android:layout_width="@dimen/dp_84"
         android:layout_height="@dimen/dp_84"
-        android:src="@drawable/logo_big_ic"/>
+        android:src="@drawable/logo_big_ic" />
 
-</LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_cover_shade"/>
+
+    <View
+        android:id="@+id/item_image_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mask_background"
+        android:visibility="gone" />
+
+    <com.ym.album.ui.widget.CustomCheckBox
+        android:id="@+id/cb_check"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_gravity="right|top"
+        android:duplicateParentState="true"
+        android:enabled="true"
+        android:focusable="true"
+        android:visibility="gone"
+        style="@style/CustomCheckboxTheme"/>
+
+
+
+</FrameLayout>
