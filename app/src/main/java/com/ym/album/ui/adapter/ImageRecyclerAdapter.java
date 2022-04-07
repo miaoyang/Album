@@ -147,7 +147,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                         .withInt(AppConstant.UI.CLICK_IMAGE_ITEM,holder.getAdapterPosition())
                         .withSerializable(AppConstant.UI.DATA_IMAGE_ITEM_LIST,mImageItemList)
                         .navigation();
-                ToastUtil.showShort(mContext,"短按触发 pos="+pos);
+
                 //清空选择的数据
                 if (mSelectedImages!=null){
                     mSelectedImages.clear();

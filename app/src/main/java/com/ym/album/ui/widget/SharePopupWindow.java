@@ -21,6 +21,7 @@ import com.ym.album.ui.adapter.SharePopupWindowAdapter;
 import com.ym.album.ui.bean.AppInfoItemBean;
 import com.ym.album.utils.DimenUtil;
 import com.ym.album.utils.ShareUtil;
+import com.ym.common_util.utils.FileUtil;
 import com.ym.common_util.utils.LogUtil;
 
 import java.io.File;
@@ -52,6 +53,10 @@ public class SharePopupWindow extends PopupWindow {
         this.imgPath = imagePath;
     }
 
+    public String getImagePath(){
+        return this.imgPath;
+    }
+
     public void setShareTitle(String shareTitle) {
         this.shareTitle = shareTitle;
     }
@@ -75,17 +80,12 @@ public class SharePopupWindow extends PopupWindow {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                intent.setAction(Intent.ACTION_SEND); //Intent.ACTION_VIEW
+                String imgPath = getImagePath();
+                LogUtil.d(TAG,"SharePopupWindow(): share image path is "+imgPath);
+                File file = new File(imgPath);
 
-                String imgPath = mAppInfoList.get(i).getAppIcon().toString();
-
-                Uri uri = FileProvider.getUriForFile(context, AUTHORITY, new File(imgPath));
-                intent.setDataAndType(uri, "image/*");
+                Intent intent = FileUtil.getViewIntent(context,file,AUTHORITY);
                 context.startActivity(intent);
-                LogUtil.d(TAG,"SharePopupWindow(): uri="+uri.getPath());
             }
         });
 
